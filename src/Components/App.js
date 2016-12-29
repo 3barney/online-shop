@@ -18,34 +18,3 @@ App.propTypes = {
 };
 
 export default App;
-
-/*
-import Header from './common/Header';
-import {connect} from 'react-redux';
-
-class App extends React.Component {
-  render () {
-    return (
-      <div className="container-fluid">
-        <Header
-          loading={this.props.loading} />
-        {this.props.children}
-      </div>
-    );
-  }
-}
-
-App.propTypes = {
-  loading: PropTypes.bool.isRequired
-};
-// {this.props.children} children passed in from React router, it passes child components as properties
-
-function mapStateToProps(state, ownProps) {
-  return {
-    loading : state.numAjaxCallsInProgress > 0
-  };
-}
-
-export default connect(mapStateToProps)(App);
-
-*/

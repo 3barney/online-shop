@@ -3,15 +3,17 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './Components/App';
 import HomePage from './Components/Home/HomePage';
-import LoginPage from './Components/Authentication/LoginPage';
-import RegisterPage from './Components/Authentication/RegisterPage';
+import LoginPage from './Components/Authentication/login/LoginPage';
+import RegisterPage from './Components/Authentication/register/RegisterPage';
+import DashboardPage from './Components/Dashboard/DashboardPage';
 
 export default (
   <Route path="/" component={App}>
     // load App component and then Nest other components and pass them as children
     <IndexRoute component={HomePage} />
-    <Route path="login" component={LoginPage}/>
     <Route path="register" component={RegisterPage} />
+    <Route path="login" component={LoginPage}/>
+    <Route path="dashboard" component={DashboardPage} />
   </Route>
 );
 

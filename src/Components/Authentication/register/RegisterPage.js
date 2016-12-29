@@ -1,10 +1,17 @@
+/*eslint-disable no-console*/
+
 import React, {PropTypes} from 'react';
 import {Segment, Form, Button, Input} from "semantic-ui-react";
 
 class RegisterPage extends React.Component {
   constructor(props){
     super(props);
+
     this.onRegister = this.onRegister.bind(this);
+  }
+
+  onRegister(){
+    console.log("hello");
   }
 
   render() {
