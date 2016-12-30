@@ -1,6 +1,11 @@
 import delay from './delay';
+import * as _ from 'lodash';
 
 let usersArray = [];
+
+const generateToken = (credentials) => {
+  return  `token. ${_.toLower(credentials.email)}.untoken`;
+};
 
 class LoginApi {
 
@@ -12,6 +17,8 @@ class LoginApi {
         if(credentials.email.length < minEmailLength) {
           reject(`Email must be at least ${minEmailLength} characters.`);
         }
+        let token = generateToken(credentials);
+        credentials.token = token;
         usersArray.push(credentials);
         resolve(Object.assign({}, credentials));
       }, delay);

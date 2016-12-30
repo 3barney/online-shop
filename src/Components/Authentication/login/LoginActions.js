@@ -12,7 +12,7 @@ export function loginUser(credentials) {
     // dispatch(beginAjaxCall)
     return LoginApi.login(credentials)
       .then( user => {
-        window.localStorage.setItem('user', user);
+        window.localStorage.setItem('token', user.token);
         dispatch(loginSuccess(user));
       })
       .catch(error => {

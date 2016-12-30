@@ -1,4 +1,3 @@
-/*eslint-disable no-console*/
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -72,7 +71,6 @@ class LoginPage extends React.Component {
 
 
   redirectToDashboard(user){
-    console.log(`user info ${user}`);
     this.setState({loggingIn: false});
     toastr.success('Login Successfull');
     browserHistory.push('/dashboard');
@@ -104,11 +102,12 @@ class LoginPage extends React.Component {
 
             <Form.Field>
               <label>Password</label>
-              <Input icon="lock" iconPosition="left" required
-                name="password"
-                type="password" placeholder="Password"
-                input={this.state.credentials.password}
-                onChange={this.onChange} />
+              <div className="ui left icon input">
+                <input  required name="password" type="password" placeholder="Password"
+                  input={this.state.credentials.password}
+                  onChange={this.onChange} />
+                <i className="lock icon"></i>
+              </div>
               {this.state.errors.password && <Label pointing color="red">{this.state.errors.password}</Label>}
             </Form.Field>
 
