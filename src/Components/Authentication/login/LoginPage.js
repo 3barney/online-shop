@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
-import {Segment, Form, Button, Input} from "semantic-ui-react";
+import {Segment, Form, Button, Input, Label} from "semantic-ui-react";
 import toastr from 'toastr';
 import * as _ from 'lodash';
 import * as LoginActions from './LoginActions';
@@ -50,10 +50,19 @@ class LoginPage extends React.Component {
 
   loginFormIsValid() {
     let formIsValid = true;
+    let regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let errors = {};
 
-    if(_.isNull(this.state.credentials.email.length) || this.state.credentials.email.length < 5) {
-      errors.email = 'Email must be at least 5 characters';
+    if(_.isNil(this.state.credentials.email) || this.state.credentials.email.length < 5) {
+      errors.email = 'Not a Valid email Address!';
+      formIsValid = false;
+    } else if(!regex.test(this.state.credentials.email)) { // ret false
+      errors.email = 'Not a Valid email Address';
+      formIsValid = false;
+    }
+
+    if(_.isNil(this.state.credentials.password) || this.state.credentials.password.length < 5) {
+      errors.password = 'Password to short';
       formIsValid = false;
     }
 
@@ -81,24 +90,26 @@ class LoginPage extends React.Component {
         <Segment raised textAlign="center" size="big" className="very padded text container">
           <Form loading={this.state.loggingIn}>
             <h1>Welcome</h1>
+
             <Form.Field>
               <label>Email Address</label>
-              <Input icon="mail" iconPosition="left"
+              <Input icon="mail" iconPosition="left" required
                 name="email"
                 type="email"
-                content={this.state.errors}
                 placeholder="Email"
                 input={this.state.credentials.email}
                 onChange={this.onChange} />
+              {this.state.errors.email && <Label pointing color="red">{this.state.errors.email}</Label>}
             </Form.Field>
 
             <Form.Field>
               <label>Password</label>
-              <Input icon="lock" iconPosition="left"
+              <Input icon="lock" iconPosition="left" required
                 name="password"
                 type="password" placeholder="Password"
                 input={this.state.credentials.password}
                 onChange={this.onChange} />
+              {this.state.errors.password && <Label pointing color="red">{this.state.errors.password}</Label>}
             </Form.Field>
 
             <Button basic color="blue" size="big" type="button"
