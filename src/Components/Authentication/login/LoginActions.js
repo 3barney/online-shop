@@ -1,4 +1,3 @@
-/*eslint-disable no-debugger*/
 import * as types from '../../../actions/actionTypes';
 import LoginApi from '../../../api/mockLoginApi';
 // import {beginAjaxCall} from './ajaxStatusActions';

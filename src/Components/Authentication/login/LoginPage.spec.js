@@ -17,8 +17,20 @@ function setup(loggingIn) {
 describe('Login page component test', () => {
   it('renders form and h1', () => {
     const wrapper = setup(false);
-    expect(wrapper.find('form'));
+    expect(wrapper.find('form').length).toBe(1);
     expect(wrapper.find('h1').text()).toEqual('Welcome');
+  });
+
+  it('renders two labels', () => {
+    const wrapper = setup(false);
+    expect(wrapper.find('label').text()).toEqual('Email Address');
+    expect(wrapper.find('label').text()).toEqual('Password');
+  });
+
+  it('renders Login and Register Button', () => {
+    const wrapper = setup(false);
+    expect(wrapper.find('button').text()).toEqual('Login');
+    expect(wrapper.find('button').text()).toEqual('Register');
   });
 });
 

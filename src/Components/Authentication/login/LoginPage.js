@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 import {Segment, Form, Button, Input} from "semantic-ui-react";
 import toastr from 'toastr';
+import * as _ from 'lodash';
 import * as LoginActions from './LoginActions';
 
 class LoginPage extends React.Component {
@@ -20,6 +21,7 @@ class LoginPage extends React.Component {
     this.redirectToRegister = this.redirectToRegister.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onLogin = this.onLogin.bind(this);
+    this.loginFormIsValid = this.loginFormIsValid.bind(this);
   }
 
   onChange(event) {
@@ -31,6 +33,10 @@ class LoginPage extends React.Component {
 
   onLogin(event) {
     event.preventDefault();
+    if(!this.loginFormIsValid()){
+      return ;
+    }
+
     this.setState({loggingIn: true});
     this.props.actions.loginUser(this.state.credentials)
       .then( (user)=>
@@ -41,6 +47,20 @@ class LoginPage extends React.Component {
         this.setState({loggingIn: false});
       });
   }
+
+  loginFormIsValid() {
+    let formIsValid = true;
+    let errors = {};
+
+    if(_.isNull(this.state.credentials.email.length) || this.state.credentials.email.length < 5) {
+      errors.email = 'Email must be at least 5 characters';
+      formIsValid = false;
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
+  }
+
 
   redirectToDashboard(user){
     console.log(`user info ${user}`);
@@ -54,16 +74,19 @@ class LoginPage extends React.Component {
     browserHistory.push("/register");
   }
 
+
   render() {
     return (
       <div className="centerForm">
         <Segment raised textAlign="center" size="big" className="very padded text container">
-          <Form>
+          <Form loading={this.state.loggingIn}>
             <h1>Welcome</h1>
             <Form.Field>
               <label>Email Address</label>
               <Input icon="mail" iconPosition="left"
                 name="email"
+                type="email"
+                content={this.state.errors}
                 placeholder="Email"
                 input={this.state.credentials.email}
                 onChange={this.onChange} />
@@ -79,9 +102,10 @@ class LoginPage extends React.Component {
             </Form.Field>
 
             <Button basic color="blue" size="big" type="button"
-              onClick={this.onLogin} >
-              Login
-            </Button>
+              onClick={this.onLogin}
+              disabled={this.state.loggingIn}
+              content={this.state.loggingIn ? 'logging in...': 'Login'} />
+
             <Button basic color="teal" size="big" type="button"
               onClick={this.redirectToRegister} >
               Register
