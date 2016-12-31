@@ -11,7 +11,6 @@ class LoginPage extends React.Component {
   constructor (props, context) {
     super(props, context);
     this.state = {
-      // TODO: change this back to object from Array
       credentials: {credentials : {email: '', password: ''}},
       errors: {},
       loggingIn: false
@@ -38,12 +37,13 @@ class LoginPage extends React.Component {
 
     this.setState({loggingIn: true});
     this.props.actions.loginUser(this.state.credentials)
-      .then( (user)=>
-        this.redirectToDashboard(user)
-      )
+      .then( (user)=> {
+        this.redirectToDashboard(user);
+      })
       .catch( (error) => {
         toastr.error(error);
         this.setState({loggingIn: false});
+        this.setState({isUserLoggedIn: false});
       });
   }
 
