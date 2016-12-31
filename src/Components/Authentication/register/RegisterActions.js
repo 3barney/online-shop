@@ -5,14 +5,13 @@ export function registerSuccess(registeredUser) {
   return { type: types.REGISTER_USER_SUCCESS, registeredUser};
 }
 
+// TODO: Add capability to check if token exists then dont set
 // Thunks
 export function registerUser(userData) {
   return function(dispatch){
     return RegisterApi.register(userData)
       .then( registeredUser => {
-        console.log('In action');
-        console.log(registeredUser)
-        window.localStorage.setItem('user', registeredUser.token);
+        window.localStorage.setItem('token', registeredUser.token);
         dispatch(registerSuccess(registeredUser));
       })
       .catch(error => {

@@ -22,6 +22,10 @@ class RegisterPage extends React.Component {
     this.onRegister = this.onRegister.bind(this);
   }
 
+  componentDidMount() {
+    localStorage.removeItem('token'); // Remove user Token
+  }
+
   onChange(event) {
     const field = event.target.name;
     const userData = this.state.userData;
@@ -29,8 +33,56 @@ class RegisterPage extends React.Component {
     return this.setState({userData: userData});
   }
 
+  registerFormIsValid() {
+    let registerFormIsValid = true;
+    let regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let errors = {};
+
+    if(_.isNil(this.state.userData.firstName)) {
+      errors.firstName = 'First Name is required!';
+      registerFormIsValid = false;
+    }
+    if(_.isNil(this.state.userData.phoneNumber)) {
+      errors.phoneNumber = 'Phone Number is required!';
+      registerFormIsValid = false;
+    }
+
+    // email Validation
+    if(_.isNil(this.state.userData.email) || this.state.userData.email.length < 5) {
+      errors.email = 'Not a Valid email Address!';
+      registerFormIsValid = false;
+    } else if(!regex.test(this.state.userData.email)) { // ret false
+      errors.email = 'Not a Valid email Address';
+      registerFormIsValid = false;
+    }
+
+    // Password validation
+    if(_.isNil(this.state.userData.password) || this.state.userData.password.length < 5) {
+      errors.password = 'Password to short';
+      registerFormIsValid = false;
+    }
+
+    // Password Comparison
+    if(!_.isNil(this.state.userData.password) && !_.isNil(this.state.userData.confirmPassword)){
+      if(this.state.userData.password === this.state.userData.confirmPassword){
+        registerFormIsValid = true;
+      } else {
+        errors.confirmPassword = "Passwords do Not Match";
+        registerFormIsValid = false;
+      }
+    }
+
+    this.setState({errors: errors});
+    return registerFormIsValid;
+  }
+
+
   onRegister(event){
     event.preventDefault();
+
+    if(!this.registerFormIsValid()){
+      return ;
+    }
 
     this.setState({registering: true});
     this.props.actions.registerUser(this.state.userData)
@@ -62,6 +114,7 @@ class RegisterPage extends React.Component {
               <Input name="firstName" type="text" placeholder="First name"
                 input={this.state.userData.firstName}
                 onChange={this.onChange} />
+              {this.state.errors.firstName && <Label pointing color="red">{this.state.errors.firstName}</Label>}
             </Form.Field>
 
             <Form.Field>
@@ -76,29 +129,35 @@ class RegisterPage extends React.Component {
               <input name="phoneNumber" type="tel" placeholder="Phone Number"
                 input={this.state.userData.phoneNumber}
                 onChange={this.onChange} />
+              {this.state.errors.phoneNumber && <Label pointing color="red">{this.state.errors.phoneNumber}</Label>}
             </Form.Field>
 
             <Form.Field>
               <label>Email</label>
-              <Input name="email" type="email" placeholder="email"
+              <Input name="email" type="email" placeholder="Email" required
                 input={this.state.userData.email}
                 onChange={this.onChange} />
+              {this.state.errors.email && <Label pointing color="red">{this.state.errors.email}</Label>}
             </Form.Field>
 
             <Form.Field>
               <label>Password</label>
-              <Input name="password" type="password" placeholder="password"
-                required
-                input={this.state.userData.password}
-                onChange={this.onChange} />
+              <div>
+                <input required name="password" type="password" placeholder="password"
+                  input={this.state.userData.password}
+                  onChange={this.onChange} />
+              </div>
+              {this.state.errors.password && <Label pointing color="red">{this.state.errors.password}</Label>}
             </Form.Field>
 
             <Form.Field>
               <label>Confirm Password</label>
-              <Input name="confirmPassword" type="password" placeholder="confirm password"
-                required
-                input={this.state.userData.password}
-                onChange={this.onChange} />
+              <div>
+                <input required name="confirmPassword" type="password" placeholder="confirm password"
+                  input={this.state.userData.confirmPassword}
+                  onChange={this.onChange} />
+              </div>
+              {this.state.errors.confirmPassword && <Label pointing color="red">{this.state.errors.confirmPassword}</Label>}
             </Form.Field>
 
             <Button primary color="teal" size="big" type="button"
