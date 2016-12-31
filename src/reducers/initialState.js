@@ -1,3 +1,3 @@
 export default {
-  userSessionCredentials: !!window.localStorage.user
+  userSessionCredentials: !!window.localStorage.token
 };
