@@ -1,6 +1,5 @@
 import * as types from '../../../actions/actionTypes';
 import LoginApi from '../../../api/mockLoginApi';
-// import {beginAjaxCall} from './ajaxStatusActions';
 
 export function loginSuccess(user) {
   return {type: types.LOG_IN_SUCCESS, user};
