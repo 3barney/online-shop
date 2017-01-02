@@ -7,7 +7,7 @@ import toastr from 'toastr';
 import * as _ from 'lodash';
 import * as LoginActions from './LoginActions';
 
-class LoginPage extends React.Component {
+export class LoginPage extends React.Component {
   constructor (props, context) {
     super(props, context);
     this.state = {
@@ -16,7 +16,6 @@ class LoginPage extends React.Component {
       loggingIn: false
     };
 
-    this.redirectToRegister = this.redirectToRegister.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.loginFormIsValid = this.loginFormIsValid.bind(this);
@@ -57,7 +56,7 @@ class LoginPage extends React.Component {
       errors.email = 'Not a Valid email Address!';
       formIsValid = false;
     } else if(!regex.test(this.state.credentials.email)) { // ret false
-      errors.email = 'Not a Valid email Address';
+      errors.email = 'Incorrect email Address';
       formIsValid = false;
     }
 
@@ -111,14 +110,16 @@ class LoginPage extends React.Component {
             </Form.Field>
 
             <Button basic color="blue" size="big" type="button"
+              name="login"
               onClick={this.onLogin}
               disabled={this.state.loggingIn}
               content={this.state.loggingIn ? 'logging in...': 'Login'} />
 
             <Button basic color="teal" size="big" type="button"
-              onClick={this.redirectToRegister} >
-              Register
-            </Button>
+              name="register"
+              content="Register"
+              onClick={this.redirectToRegister} />
+
           </Form>
         </Segment>
       </div>

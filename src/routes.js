@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './Components/App';
 import HomePage from './Components/Home/HomePage';
-import LoginPage from './Components/Authentication/login/LoginPage';
-import RegisterPage from './Components/Authentication/register/RegisterPage';
+import LoginPage from './Components/Authentication/login/LoginPage'; //eslint-disable-line import/no-named-as-default
+import RegisterPage from './Components/Authentication/register/RegisterPage'; //eslint-disable-line import/no-named-as-default
 import DashboardPage from './Components/Dashboard/DashboardPage';
 import Authentication from './Components/Authentication/Authenticator';
 

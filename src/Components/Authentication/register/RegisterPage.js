@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 import {Segment, Form, Button, Input, Label} from "semantic-ui-react";
 import * as RegisterActions from './RegisterActions';
 
-class RegisterPage extends React.Component {
+export class RegisterPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -23,7 +23,9 @@ class RegisterPage extends React.Component {
   }
 
   componentDidMount() {
-    localStorage.removeItem('shopID_token'); // Remove user Token
+    if(!_.isNil(localStorage.getItem('shopID_token'))){
+      localStorage.removeItem('shopID_token'); // Remove user Token
+    }
   }
 
   onChange(event) {
