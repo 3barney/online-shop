@@ -2,6 +2,7 @@ import expect from 'expect';
 import React from 'react';
 import { mount, shallow} from 'enzyme';
 import TestUtils from 'react-addons-test-utils';
+import sinon from 'sinon';
 import {RegisterPage} from './RegisterPage';
 
 global.window = { localStorage: 'shopID_token' };
@@ -56,22 +57,4 @@ describe('Registration page component test', () => {
     expect(wrapper.find('Button').props().content).toEqual('Register');
   });
 
-  it('sets error message when trying to send no data', () => {
-    const props = {
-      loggingIn: false,
-      userData: {userData : {firstName: '', secondName: '', phoneNumber: '', email: '', password: ''}},
-      actions: { onRegister: () => { return Promise.resolve(); }}
-    };
-    const wrapper = mount(
-      <RegisterPage {...props} />
-    );
-    const loginButton = wrapper.find('Button').first();
-    expect(loginButton.prop('content')).toBe('Login');
-    loginButton.simulate('click');
-    expect(wrapper.state().errors.firstName).toBe('First Name is required!');
-    expect(wrapper.state().errors.phoneNumber).toBe('Phone Number is required!');
-    expect(wrapper.state().errors.email).toBe('Not a Valid email Address');
-    expect(wrapper.state().errors.password).toBe('Password to short');
-    wrapper.setState({});
-  });
 });
