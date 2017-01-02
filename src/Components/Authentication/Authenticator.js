@@ -1,10 +1,10 @@
 class Authentication {
   static loggedIn() {
-    return !!window.localStorage.token;
+    return !!window.localStorage.shopID_token;
   }
 
   static logOut() {
-    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('shopID_token');
   }
 }
 

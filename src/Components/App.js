@@ -5,8 +5,7 @@ import {Container, Header} from "semantic-ui-react";
 class App extends React.Component {
   render () {
     return (
-      <Container fluid>
-        <Header as="h2" textAlign="center">Add header Navbar here</Header>
+      <Container fluid className="centerForm">
         {this.props.children}
       </Container>
     );

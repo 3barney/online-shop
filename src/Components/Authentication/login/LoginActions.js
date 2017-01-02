@@ -11,7 +11,7 @@ export function loginUser(credentials) {
     // dispatch(beginAjaxCall)
     return LoginApi.login(credentials)
       .then( user => {
-        window.localStorage.setItem('token', user.token);
+        window.localStorage.setItem('shopID_token', user.token);
         dispatch(loginSuccess(user));
       })
       .catch(error => {

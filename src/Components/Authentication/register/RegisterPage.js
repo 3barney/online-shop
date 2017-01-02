@@ -23,7 +23,7 @@ class RegisterPage extends React.Component {
   }
 
   componentDidMount() {
-    localStorage.removeItem('token'); // Remove user Token
+    localStorage.removeItem('shopID_token'); // Remove user Token
   }
 
   onChange(event) {
@@ -96,11 +96,9 @@ class RegisterPage extends React.Component {
   }
 
   redirectToDashboard(user){
-    console.log(`user info ${user}`);
     this.setState({registering: false});
     toastr.success('Registration Successfull');
-    browserHistory.push('/dashboard');
-    // this.context.router.push('/dashboard'); // After save redirect to /dashboard
+    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.userData }});
   }
 
   render() {

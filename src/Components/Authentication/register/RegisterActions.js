@@ -11,7 +11,7 @@ export function registerUser(userData) {
   return function(dispatch){
     return RegisterApi.register(userData)
       .then( registeredUser => {
-        window.localStorage.setItem('token', registeredUser.token);
+        window.localStorage.setItem('shopID_token', userData.token);
         dispatch(registerSuccess(registeredUser));
       })
       .catch(error => {

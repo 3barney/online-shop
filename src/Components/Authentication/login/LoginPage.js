@@ -30,6 +30,7 @@ class LoginPage extends React.Component {
   }
 
   onLogin(event) {
+
     event.preventDefault();
     if(!this.loginFormIsValid()){
       return ;
@@ -37,8 +38,8 @@ class LoginPage extends React.Component {
 
     this.setState({loggingIn: true});
     this.props.actions.loginUser(this.state.credentials)
-      .then( (user)=> {
-        this.redirectToDashboard(user);
+      .then( ()=> {
+        this.redirectToDashboard();
       })
       .catch( (error) => {
         toastr.error(error);
@@ -69,12 +70,10 @@ class LoginPage extends React.Component {
     return formIsValid;
   }
 
-
-  redirectToDashboard(user){
+  redirectToDashboard(){
     this.setState({loggingIn: false});
     toastr.success('Login Successfull');
-    browserHistory.push('/dashboard');
-    // this.context.router.push('/dashboard'); // After save redirect to /dashboard
+    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.credentials}});
   }
 
   redirectToRegister() {
