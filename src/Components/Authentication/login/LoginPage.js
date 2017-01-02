@@ -7,6 +7,7 @@ import toastr from 'toastr';
 import * as _ from 'lodash';
 import * as LoginActions from './LoginActions';
 
+// TODO: if token exists on localStorage and login is success change it to current logged user Token
 export class LoginPage extends React.Component {
   constructor (props, context) {
     super(props, context);

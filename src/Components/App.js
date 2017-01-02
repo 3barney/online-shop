@@ -5,7 +5,7 @@ import {Container, Header} from "semantic-ui-react";
 class App extends React.Component {
   render () {
     return (
-      <Container fluid className="centerForm">
+      <Container>
         {this.props.children}
       </Container>
     );
