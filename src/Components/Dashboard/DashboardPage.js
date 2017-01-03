@@ -2,7 +2,7 @@
 
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Segment, Grid} from "semantic-ui-react";
+import {Container, Segment, Grid} from "semantic-ui-react";
 import HeaderPage from './HeaderPage';
 import SideBar from './SideBar';
 
@@ -26,19 +26,11 @@ class DashboardPage extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className=".dashboardSize">
         <HeaderPage logged_user={this.props.location.state.user_info} />
-        <Grid>
-          <Grid.Column width={4}>
-            <SideBar logged_user={this.props.location.state.user_info} />
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <Segment raised textAlign="center" size="big" className="very padded text container">
-              <h1>My DashBoard </h1>
-            </Segment>
-          </Grid.Column>
-        </Grid>
-      
+        <div>
+          <SideBar logged_user={this.props.location.state.user_info} />
+        </div>
       </div>
     );
   }

@@ -1,13 +1,12 @@
 /* This component handles The app template used on evrey page */
 import React, {PropTypes} from 'react';
-import {Container, Header} from "semantic-ui-react";
 
 class App extends React.Component {
   render () {
     return (
-      <Container>
-        {this.props.children}
-      </Container>
+        <div>
+          {this.props.children}
+        </div>
     );
   }
 }

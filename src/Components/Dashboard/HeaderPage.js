@@ -15,13 +15,23 @@ class HeaderPage extends React.Component {
     if (!_.isNil(this.state.loggedUSerData)){
       const activeItem = this.state.activeItem;
       return (
-        <Segment inverted>
-          <Menu inverted pointing secondary fixed="top" size="large">
-            <Menu.Item name="home" active={activeItem === 'home'}>
-              {this.state.loggedUSerData.email}
-            </Menu.Item>
+          <Menu pointing fixed="top" secondary size="huge" color="blue" inverted>
+              <Menu.Item name="about" active={activeItem === 'about'}>
+                Home
+              </Menu.Item>
+              <Menu.Item name="dummy" active={activeItem === 'dummy'}>
+                About
+              </Menu.Item>
+              <Menu.Item name="contact" active={activeItem === 'contact'}>
+                Contact
+              </Menu.Item>
+              <Menu.Menu position="right">
+                <Menu.Item name="home" active={activeItem === 'home'}>
+                  {this.state.loggedUSerData.email}
+                </Menu.Item>
+                <Menu.Item name="logout" active={activeItem === 'logout'} onClick={this.handleItemClick} />
+              </Menu.Menu>
           </Menu>
-        </Segment>
       );
     } else {
       return (
