@@ -12,7 +12,6 @@ class HeaderPage extends React.Component {
     super(props, context);
     this.state = {
       loggedUSerData: Object.assign({}, props.logged_user),
-      activeItem: 'logout',
       errors: {},
       loggingOut: false
     };
@@ -41,7 +40,6 @@ class HeaderPage extends React.Component {
 
   render() {
     if (!_.isNil(this.state.loggedUSerData)){
-      const activeItem = this.state.activeItem;
       return (
           <Menu pointing fixed="top" secondary size="huge" color="blue" inverted>
               <Menu.Item name="shop-logo">
@@ -49,13 +47,11 @@ class HeaderPage extends React.Component {
                 PIED PIPER ONLINE SHOP
               </Menu.Item>
               <Menu.Menu position="right">
-                <Menu.Item name="logged-user" active={activeItem === 'logged-user'}>
+                <Menu.Item name="logged-user">
                   <Icon name="user" size="large" inverted />
                   {this.state.loggedUSerData.email}
                 </Menu.Item>
-                <Menu.Item name="logout" color="red"
-                  active={activeItem === 'logout'}
-                  onClick={this.logoutUser} >
+                <Menu.Item name="logout" color="red" onClick={this.logoutUser} >
                   <Button negative loading={this.state.loggingOut}>
                     <Icon name="lock"/>
                     Logout

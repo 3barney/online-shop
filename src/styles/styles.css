@@ -20,6 +20,15 @@
   padding-right: 5rem;
 }
 /* END OF HEADER STYLES */
+
+/*SIDEBAR ITEMS
+  padding: top right bottom left
+*/
 .sidebarr {
     margin-top: 3.3rem !important;
 }
+.menuItems {
+  font-size: 1.2rem;
+  padding: 0;
+}
+/*END OF SIDEBAR*/

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import { Sidebar, Segment, Menu, Label, Input, Header, Image } from 'semantic-ui-react';
+import {browserHistory} from 'react-router';
+import { Sidebar, Segment, Menu, Label, Input, Header, Icon, Image } from 'semantic-ui-react';
 import * as _ from 'lodash';
 
 class SideBar extends React.Component {
@@ -7,9 +8,21 @@ class SideBar extends React.Component {
     super(props, context);
     this.state = {
       loggedUSerData: Object.assign({}, props.logged_user),
-      activeItem: 'inbox',
+      activeItem: 'home',
       visible: true
     };
+
+    this.handleItemClick = this.handleItemClick.bind(this);
+    this.redirectToDashboard = this.redirectToDashboard.bind(this);
+
+  }
+
+  handleItemClick(event, {name}) {
+    this.setState({activeItem: name});
+  }
+
+  redirectToDashboard(){
+    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.loggedUSerData}});
   }
 
   render() {
@@ -17,49 +30,64 @@ class SideBar extends React.Component {
       const {activeItem} = this.state;
       const {visible} = this.state;
       return (
-        <Sidebar.Pushable className="sidebarr">
-          <Sidebar as={Menu} animation="slide along" visible={visible} vertical >
-            <Menu.Item name="inbox" active={activeItem === 'inbox'}
-              onClick={this.handleItemClick}>
-              <Label color="teal">1</Label>
-              Inbox
-            </Menu.Item>
+          <div>
+          <Sidebar as={Menu} animation="slide along" vertical visible={visible} color="teal">
 
-            <Menu.Item name="spam" active={activeItem === 'spam'}
-              onClick={this.handleItemClick}>
-              <Label>51</Label>
-              Spam
-              <Menu.Menu>
-             <Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
-               Search
-             </Menu.Item>
-             <Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
-               Add
-             </Menu.Item>
-             <Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
-               Remove
-             </Menu.Item>
-           </Menu.Menu>
-            </Menu.Item>
+            <div className="menuItems">
+              <Menu.Item name="hide-menu">
+                <Icon name="bars" />
+                Hide
+              </Menu.Item>
 
-            <Menu.Item name="updates" active={activeItem === 'updates'}
-              onClick={this.handleItemClick}>
-              <Label>1</Label>
-              Updates
-            </Menu.Item>
-            <Menu.Item>
-              <Input icon="search" placeholder="Search mail..." />
-            </Menu.Item>
+              <Menu.Item name="home" active={activeItem === 'home'}
+                onClick={this.handleItemClick && this.redirectToDashboard} >
+                <Icon name="home" />
+                Home
+              </Menu.Item>
+
+              <Menu.Item name="categories" active={activeItem === 'categories'}
+                onClick={this.handleItemClick} >
+                <Icon name="tasks" />
+                Categories
+              </Menu.Item>
+
+              <Menu.Item>
+                <Icon name="sidebar" />
+                Products
+                <Menu.Menu>
+                  <Menu.Item name="list-products" active={activeItem === 'list-products'}
+                   onClick={this.handleItemClick} >
+                   List
+                 </Menu.Item>
+                 <Menu.Item name="add-products" active={activeItem == 'add-products'}
+                   onClick={this.handleItemClick} >
+                   Add
+                 </Menu.Item>
+                </Menu.Menu>
+              </Menu.Item>
+
+              <Menu.Item name="orders" active={activeItem === 'orders'}
+                onClick={this.handleItemClick} >
+                <Label color="red">20</Label>
+                Orders
+              </Menu.Item>
+
+              <Menu.Item name="customers" active={activeItem === 'customers'}
+                onClick={this.handleItemClick} >
+                <Icon name="users" />
+                Customers
+              </Menu.Item>
+            </div>
           </Sidebar>
 
-          <Sidebar.Pusher>
+          <Sidebar.Pusher className="sidebarr">
            <Segment>
              <Header as="h3">Application Content</Header>
              <Image src="http://semantic-ui.com/images/wireframe/paragraph.png" />
              <Image src="http://semantic-ui.com/images/wireframe/paragraph.png" />
            </Segment>
          </Sidebar.Pusher>
-       </Sidebar.Pushable>
+       </div>
       );
     }else{
       return (
@@ -74,39 +102,3 @@ SideBar.propTypes = {
 };
 
 export default SideBar;
-
-/*
-<Menu vertical>
-  <Menu.Item name="inbox" active={activeItem === 'inbox'}
-    onClick={this.handleItemClick}>
-    <Label color="teal">1</Label>
-    Inbox
-  </Menu.Item>
-
-  <Menu.Item name="spam" active={activeItem === 'spam'}
-    onClick={this.handleItemClick}>
-    <Label>51</Label>
-    Spam
-    <Menu.Menu>
-   <Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
-     Search
-   </Menu.Item>
-   <Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
-     Add
-   </Menu.Item>
-   <Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
-     Remove
-   </Menu.Item>
- </Menu.Menu>
-  </Menu.Item>
-
-  <Menu.Item name="updates" active={activeItem === 'updates'}
-    onClick={this.handleItemClick}>
-    <Label>1</Label>
-    Updates
-  </Menu.Item>
-  <Menu.Item>
-    <Input icon="search" placeholder="Search mail..." />
-  </Menu.Item>
-</Menu>
-*/
