@@ -1,35 +1,66 @@
 import React, {PropTypes} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {browserHistory} from 'react-router';
+import {Menu, Segment, Icon, Button} from 'semantic-ui-react';
 import * as _ from 'lodash';
-import {Menu, Segment} from 'semantic-ui-react';
+import toastr from 'toastr';
+import * as LoginActions from '../Authentication/login/LoginActions';
 
 class HeaderPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       loggedUSerData: Object.assign({}, props.logged_user),
-      activeItem: 'home'
+      activeItem: 'logout',
+      errors: {},
+      loggingOut: false
     };
+    this.logoutUser = this.logoutUser.bind(this);
   }
+
+  logoutUser(event) {
+    event.preventDefault();
+    this.setState({loggingOut: true});
+    const logout = this.props.actions.logoutUser();
+    if(logout === true) {
+      this.redirectToLogin();
+    } else {
+      toastr.error(logout);
+      this.setState({loggingOut: false});
+    }
+  }
+
+
+  redirectToLogin(){
+    this.setState({loggingOut: false});
+    toastr.success('Logout Successfull');
+    browserHistory.push("/login");
+  }
+
 
   render() {
     if (!_.isNil(this.state.loggedUSerData)){
       const activeItem = this.state.activeItem;
       return (
           <Menu pointing fixed="top" secondary size="huge" color="blue" inverted>
-              <Menu.Item name="about" active={activeItem === 'about'}>
-                Home
-              </Menu.Item>
-              <Menu.Item name="dummy" active={activeItem === 'dummy'}>
-                About
-              </Menu.Item>
-              <Menu.Item name="contact" active={activeItem === 'contact'}>
-                Contact
+              <Menu.Item name="shop-logo">
+                <Icon name="new pied piper" size="large" inverted />
+                PIED PIPER ONLINE SHOP
               </Menu.Item>
               <Menu.Menu position="right">
-                <Menu.Item name="home" active={activeItem === 'home'}>
+                <Menu.Item name="logged-user" active={activeItem === 'logged-user'}>
+                  <Icon name="user" size="large" inverted />
                   {this.state.loggedUSerData.email}
                 </Menu.Item>
-                <Menu.Item name="logout" active={activeItem === 'logout'} onClick={this.handleItemClick} />
+                <Menu.Item name="logout" color="red"
+                  active={activeItem === 'logout'}
+                  onClick={this.logoutUser} >
+                  <Button negative loading={this.state.loggingOut}>
+                    <Icon name="lock"/>
+                    Logout
+                  </Button>
+                </Menu.Item>
               </Menu.Menu>
           </Menu>
       );
@@ -42,25 +73,14 @@ class HeaderPage extends React.Component {
 }
 
 HeaderPage.propTypes = {
-  logged_user: PropTypes.object.isRequired
+  logged_user: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(LoginActions, dispatch)
+  };
+}
 
-export default HeaderPage;
-
-/**
-const HeaderPage = ({logged_user}) => {
-  if(logged_user) {
-    return (
-      <Menu color={color}>
-        <Menu.item name="home">
-          {logged_user.email}
-        </Menu.item>
-      </Menu>
-    );
-  } else {
-    return (
-      <div>Hello</div>
-    );
-   }
-};**/
+export default connect(null, mapDispatchToProps)(HeaderPage);

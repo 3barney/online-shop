@@ -56,6 +56,7 @@ class SideBar extends React.Component {
            <Segment>
              <Header as="h3">Application Content</Header>
              <Image src="http://semantic-ui.com/images/wireframe/paragraph.png" />
+             <Image src="http://semantic-ui.com/images/wireframe/paragraph.png" />
            </Segment>
          </Sidebar.Pusher>
        </Sidebar.Pushable>

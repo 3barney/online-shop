@@ -7,7 +7,7 @@
 
 .dashboardSize {
   position:fixed;
-  padding:1rem;
+  padding:0;
   margin:0;
   top:0;
   left:0;
@@ -15,6 +15,11 @@
   height: 100%;
 }
 
+/* HEADER CONTENTS HERE */
+.userInfo {
+  padding-right: 5rem;
+}
+/* END OF HEADER STYLES */
 .sidebarr {
     margin-top: 3.3rem !important;
 }

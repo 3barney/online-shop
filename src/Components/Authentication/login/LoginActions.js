@@ -5,6 +5,10 @@ export function loginSuccess(user) {
   return {type: types.LOG_IN_SUCCESS, user};
 }
 
+export function logoutSuccess(){
+  return {type: types.LOG_OUT_SUCCESS};
+}
+
 // THUNK
 export function loginUser(credentials) {
   return function(dispatch) {
@@ -18,4 +22,17 @@ export function loginUser(credentials) {
         throw(error);
       });
   };
+}
+
+export function logoutUser(){
+  return function(dispatch) {
+    try {
+      window.localStorage.removeItem('shopID_token');
+      return true;
+    } catch (error) {
+      throw(error);
+    }
+  };
+
+
 }
