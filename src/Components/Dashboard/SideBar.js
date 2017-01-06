@@ -1,7 +1,9 @@
 import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import {browserHistory} from 'react-router';
 import { Sidebar, Segment, Menu, Label, Input, Header, Icon, Image } from 'semantic-ui-react';
 import * as _ from 'lodash';
+import CategoriesPage from '../Categories/CategoriesPage';
 
 class SideBar extends React.Component {
   constructor(props, context) {
@@ -25,6 +27,11 @@ class SideBar extends React.Component {
     browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.loggedUSerData}});
   }
 
+  redirectToCatergories(){
+    ReactDOM.render(<CategoriesPage /> , document.getElementById('root-dashboard'));
+    //browserHistory.push("/dashboard/categories");
+  }
+
   render() {
     if (!_.isNil(this.state.loggedUSerData)){
       const {activeItem} = this.state;
@@ -46,7 +53,7 @@ class SideBar extends React.Component {
               </Menu.Item>
 
               <Menu.Item name="categories" active={activeItem === 'categories'}
-                onClick={this.handleItemClick} >
+                onClick={this.handleItemClick && this.redirectToCatergories} link>
                 <Icon name="tasks" />
                 Categories
               </Menu.Item>
@@ -81,11 +88,9 @@ class SideBar extends React.Component {
           </Sidebar>
 
           <Sidebar.Pusher className="sidebarr">
-           <Segment>
-             <Header as="h3">Application Content</Header>
-             <Image src="http://semantic-ui.com/images/wireframe/paragraph.png" />
-             <Image src="http://semantic-ui.com/images/wireframe/paragraph.png" />
-           </Segment>
+           <div id="root-dashboard">
+
+           </div>
          </Sidebar.Pusher>
        </div>
       );

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './Components/App';
+import Authentication from './Components/Authentication/Authenticator';
 import HomePage from './Components/Home/HomePage';
 import LoginPage from './Components/Authentication/login/LoginPage'; //eslint-disable-line import/no-named-as-default
 import RegisterPage from './Components/Authentication/register/RegisterPage'; //eslint-disable-line import/no-named-as-default
 import DashboardPage from './Components/Dashboard/DashboardPage';
-import Authentication from './Components/Authentication/Authenticator';
+import CategoriesPage from './Components/Categories/CategoriesPage';
 
 export default (
   <Route path="/" component={App}>
@@ -15,7 +16,9 @@ export default (
     <Route path="login" component={LoginPage}/>
 
     <Route onEnter={requireAuth}>
-      <Route path="dashboard" component={DashboardPage} />
+      <Route path="dashboard" component={DashboardPage}>
+        <Route path="categories" component={CategoriesPage} />
+      </Route>
     </Route>
   </Route>
 );
