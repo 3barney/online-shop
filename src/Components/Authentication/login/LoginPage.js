@@ -132,10 +132,16 @@ LoginPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
+function mapStateToProps(state, ownProps) {
+  return {
+    usersss: state.loginReducer
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(LoginActions, dispatch)
   };
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
