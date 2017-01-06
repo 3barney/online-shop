@@ -18,8 +18,6 @@ class DashboardPage extends React.Component {
   }
 
   componentWillMount(){
-    //console.log(this.props.location.state.user_info)
-    // this.setState({loggedInUser: this.props.location.state.user_info});
     if(_.isNull(this.props.location.state)) {
       browserHistory.push("/login");
       return ;
@@ -29,17 +27,15 @@ class DashboardPage extends React.Component {
   }
 
   componentDidMount(){
-    // TODO: change how user data is passed to state instead of router
-    console.log("in mount");
-    console.log(this.props.location.state);
 
   }
+
   render() {
     return (
       <div className=".dashboardSize">
-        <HeaderPage logged_user={this.props.location.state.user_info} />
+        <HeaderPage logged_user={this.state.loggedInUser} />
         <div>
-          <SideBar logged_user={this.props.location.state.user_info} />
+          <SideBar logged_user={this.state.loggedInUser} />
         </div>
       </div>
     );

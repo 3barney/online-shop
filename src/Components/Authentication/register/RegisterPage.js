@@ -100,7 +100,7 @@ export class RegisterPage extends React.Component {
   redirectToDashboard(user){
     this.setState({registering: false});
     toastr.success('Registration Successfull');
-    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.userData }});
+    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.userData}});
   }
 
   render() {
