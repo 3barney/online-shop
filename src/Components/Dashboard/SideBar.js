@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import {browserHistory} from 'react-router';
+import {browserHistory, Link} from 'react-router';
 import { Sidebar, Segment, Menu, Label, Input, Header, Icon, Image } from 'semantic-ui-react';
 import * as _ from 'lodash';
 import CategoryPage from '../Categories/CategoryPage';
@@ -28,8 +28,8 @@ class SideBar extends React.Component {
   }
 
   redirectToCatergories(){
-    ReactDOM.render(<CategoryPage /> , document.getElementById('root-dashboard'));
-    //browserHistory.push("/dashboard/categories");
+    //ReactDOM.render(<CategoryPage /> , document.getElementById('root-dashboard'));
+    browserHistory.push("/dashboard/categories");
   }
 
   render() {
@@ -53,9 +53,9 @@ class SideBar extends React.Component {
               </Menu.Item>
 
               <Menu.Item name="categories" active={activeItem === 'categories'}
-                onClick={this.handleItemClick && this.redirectToCatergories} link>
+                onClick={this.handleItemClick}>
                 <Icon name="tasks" />
-                Categories
+                <Link to="/dashboard/categories">Categories</Link>
               </Menu.Item>
 
               <Menu.Item>
@@ -89,6 +89,8 @@ class SideBar extends React.Component {
 
           <Sidebar.Pusher className="sidebarr">
            <div id="root-dashboard">
+
+
              // Default dashBOARD items Go heree
            </div>
          </Sidebar.Pusher>

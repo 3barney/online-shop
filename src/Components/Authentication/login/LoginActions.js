@@ -28,7 +28,7 @@ export function logoutUser(){
   return function(dispatch) {
     try {
       window.localStorage.removeItem('shopID_token');
-      return true;
+      return dispatch(logoutSuccess());
     } catch (error) {
       throw(error);
     }

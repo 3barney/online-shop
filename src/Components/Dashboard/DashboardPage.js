@@ -31,11 +31,14 @@ class DashboardPage extends React.Component {
   }
 
   render() {
+    console.log("dashy");
+    console.log(this.props.loginReducer);
+
     return (
       <div className=".dashboardSize">
-        <HeaderPage logged_user={this.state.loggedInUser} />
+        <HeaderPage logged_user={this.props.loginReducer[0]} />
         <div>
-          <SideBar logged_user={this.state.loggedInUser}/>
+          <SideBar logged_user={this.props.loginReducer[0]} />
         </div>
       </div>
     );
@@ -43,7 +46,14 @@ class DashboardPage extends React.Component {
 }
 
 DashboardPage.propTypes = {
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  loginReducer: PropTypes.array.isRequired
 };
 
-export default DashboardPage;
+function mapStateToProps(state){
+  return {
+    loginReducer: state.loginReducer
+  };
+}
+
+export default connect(mapStateToProps, null)(DashboardPage);

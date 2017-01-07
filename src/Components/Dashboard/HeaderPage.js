@@ -22,10 +22,10 @@ class HeaderPage extends React.Component {
     event.preventDefault();
     this.setState({loggingOut: true});
     const logout = this.props.actions.logoutUser();
-    if(logout === true) {
+    if(logout.type === 'LOG_OUT_SUCCESS') {
       this.redirectToLogin();
     } else {
-      toastr.error(logout);
+      toastr.error("Error Ocurred");
       this.setState({loggingOut: false});
     }
   }
