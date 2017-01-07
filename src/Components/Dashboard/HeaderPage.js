@@ -11,7 +11,7 @@ class HeaderPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      loggedUSerData: Object.assign({}, props.logged_user),
+      loggedUSerData: props.logged_user,
       errors: {},
       loggingOut: false
     };
@@ -49,7 +49,7 @@ class HeaderPage extends React.Component {
               <Menu.Menu position="right">
                 <Menu.Item name="logged-user">
                   <Icon name="user" size="large" inverted />
-                  {this.state.loggedUSerData.email}
+                  {this.state.loggedUSerData}
                 </Menu.Item>
                 <Menu.Item name="logout" color="red" onClick={this.logoutUser} >
                   <Button negative loading={this.state.loggingOut}>
@@ -69,7 +69,7 @@ class HeaderPage extends React.Component {
 }
 
 HeaderPage.propTypes = {
-  logged_user: PropTypes.object.isRequired,
+  logged_user: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired
 };
 

@@ -28,6 +28,7 @@ export function logoutUser(){
   return function(dispatch) {
     try {
       window.localStorage.removeItem('shopID_token');
+      window.localStorage.removeItem('loggedInUser');
       return dispatch(logoutSuccess());
     } catch (error) {
       throw(error);

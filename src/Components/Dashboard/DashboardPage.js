@@ -1,4 +1,5 @@
 /*eslint-disable no-console*/
+/*eslint-disable react/prop-types*/
 
 import React, {PropTypes} from 'react';
 import {browserHistory} from 'react-router';
@@ -13,32 +14,17 @@ class DashboardPage extends React.Component {
     super(props, context);
 
     this.state = {
-      loggedInUser: {}
+      loggedInUser: window.localStorage.loggedInUser
     };
-  }
-
-  componentWillMount(){
-    if(_.isNull(this.props.location.state)) {
-      browserHistory.push("/login");
-      return ;
-    } else {
-      this.setState({loggedInUser: this.props.location.state.user_info}); // eslint-disable-line react/no-did-mount-set-state
-    }
-  }
-
-  componentDidMount(){
 
   }
 
   render() {
-    console.log("dashy");
-    console.log(this.props.loginReducer);
-
     return (
       <div className=".dashboardSize">
-        <HeaderPage logged_user={this.props.loginReducer[0]} />
+        <HeaderPage logged_user={this.state.loggedInUser} />
         <div>
-          <SideBar logged_user={this.props.loginReducer[0]} />
+          <SideBar logged_user={this.state.loggedInUser} />
         </div>
       </div>
     );
@@ -46,8 +32,7 @@ class DashboardPage extends React.Component {
 }
 
 DashboardPage.propTypes = {
-  location: PropTypes.object.isRequired,
-  loginReducer: PropTypes.array.isRequired
+  location: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state){

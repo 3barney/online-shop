@@ -9,7 +9,7 @@ class SideBar extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      loggedUSerData: Object.assign({}, props.logged_user),
+      loggedUSerData: props.logged_user,
       activeItem: 'home',
       visible: true
     };
@@ -24,7 +24,8 @@ class SideBar extends React.Component {
   }
 
   redirectToDashboard(){
-    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.loggedUSerData}});
+    browserHistory.push("/dashboard")
+    //browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.loggedUSerData}});
   }
 
   redirectToCatergories(){
@@ -105,7 +106,7 @@ class SideBar extends React.Component {
 }
 
 SideBar.propTypes = {
-  logged_user: PropTypes.object.isRequired
+  logged_user: PropTypes.string.isRequired
 };
 
 export default SideBar;

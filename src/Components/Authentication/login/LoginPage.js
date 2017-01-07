@@ -73,7 +73,9 @@ export class LoginPage extends React.Component {
   redirectToDashboard(){
     this.setState({loggingIn: false});
     toastr.success('Login Successfull');
-    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.credentials}});
+    window.localStorage.setItem('loggedInUser', this.state.credentials.email);
+    browserHistory.push("/dashboard")
+    //browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.credentials}});
   }
 
   redirectToRegister() {
