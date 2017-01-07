@@ -6,7 +6,7 @@ import HomePage from './Components/Home/HomePage';
 import LoginPage from './Components/Authentication/login/LoginPage'; //eslint-disable-line import/no-named-as-default
 import RegisterPage from './Components/Authentication/register/RegisterPage'; //eslint-disable-line import/no-named-as-default
 import DashboardPage from './Components/Dashboard/DashboardPage';
-import CategoriesPage from './Components/Categories/CategoriesPage';
+import CategoryPage from './Components/Categories/CategoryPage';
 
 export default (
   <Route path="/" component={App}>
@@ -17,7 +17,8 @@ export default (
 
     <Route onEnter={requireAuth}>
       <Route path="dashboard" component={DashboardPage}>
-        <Route path="categories" component={CategoriesPage} />
+        // NOt using this to display data
+        <Route path="categories" component={CategoryPage} />
       </Route>
     </Route>
   </Route>

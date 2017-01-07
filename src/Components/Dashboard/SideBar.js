@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {browserHistory} from 'react-router';
 import { Sidebar, Segment, Menu, Label, Input, Header, Icon, Image } from 'semantic-ui-react';
 import * as _ from 'lodash';
-import CategoriesPage from '../Categories/CategoriesPage';
+import CategoryPage from '../Categories/CategoryPage';
 
 class SideBar extends React.Component {
   constructor(props, context) {
@@ -28,7 +28,7 @@ class SideBar extends React.Component {
   }
 
   redirectToCatergories(){
-    ReactDOM.render(<CategoriesPage /> , document.getElementById('root-dashboard'));
+    ReactDOM.render(<CategoryPage /> , document.getElementById('root-dashboard'));
     //browserHistory.push("/dashboard/categories");
   }
 
@@ -89,7 +89,7 @@ class SideBar extends React.Component {
 
           <Sidebar.Pusher className="sidebarr">
            <div id="root-dashboard">
-
+             // Default dashBOARD items Go heree
            </div>
          </Sidebar.Pusher>
        </div>
