@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {browserHistory, Link} from 'react-router';
 import { Sidebar, Segment, Menu, Label, Input, Header, Icon, Image } from 'semantic-ui-react';
 import * as _ from 'lodash';
-import CategoryPage from '../Categories/CategoryPage';
 
 class SideBar extends React.Component {
   constructor(props, context) {
@@ -16,7 +15,7 @@ class SideBar extends React.Component {
 
     this.handleItemClick = this.handleItemClick.bind(this);
     this.redirectToDashboard = this.redirectToDashboard.bind(this);
-
+    this.redirectToCatergories = this.redirectToCatergories.bind(this);
   }
 
   handleItemClick(event, {name}) {
@@ -24,12 +23,14 @@ class SideBar extends React.Component {
   }
 
   redirectToDashboard(){
-    browserHistory.push("/dashboard")
+    browserHistory.push("/dashboard/home");
     //browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.loggedUSerData}});
   }
 
   redirectToCatergories(){
+
     //ReactDOM.render(<CategoryPage /> , document.getElementById('root-dashboard'));
+    //this.setState({activeItem: name});
     browserHistory.push("/dashboard/categories");
   }
 
@@ -39,7 +40,8 @@ class SideBar extends React.Component {
       const {visible} = this.state;
       return (
           <div>
-          <Sidebar as={Menu} animation="slide along" vertical visible={visible} color="teal">
+          <Sidebar as={Menu}
+            animation="slide along" vertical visible={visible} color="blue">
 
             <div className="menuItems">
               <Menu.Item name="hide-menu">
@@ -48,15 +50,15 @@ class SideBar extends React.Component {
               </Menu.Item>
 
               <Menu.Item name="home" active={activeItem === 'home'}
-                onClick={this.handleItemClick && this.redirectToDashboard} >
+                onClick={this.redirectToDashboard} >
                 <Icon name="home" />
                 Home
               </Menu.Item>
 
               <Menu.Item name="categories" active={activeItem === 'categories'}
-                onClick={this.handleItemClick}>
+                onClick={this.redirectToCatergories}>
                 <Icon name="tasks" />
-                <Link to="/dashboard/categories">Categories</Link>
+                Categories
               </Menu.Item>
 
               <Menu.Item>
@@ -90,9 +92,8 @@ class SideBar extends React.Component {
 
           <Sidebar.Pusher className="sidebarr">
            <div id="root-dashboard">
-
-
-             // Default dashBOARD items Go heree
+             {console.log(this.props.children)}
+             {this.props.children}
            </div>
          </Sidebar.Pusher>
        </div>

@@ -7,6 +7,7 @@ import LoginPage from './Components/Authentication/login/LoginPage'; //eslint-di
 import RegisterPage from './Components/Authentication/register/RegisterPage'; //eslint-disable-line import/no-named-as-default
 import DashboardPage from './Components/Dashboard/DashboardPage';
 import CategoryPage from './Components/Categories/CategoryPage';
+import DashboardDetailsPage from './Components/Dashboard/DashboardDetailsPage';
 
 export default (
   <Route path="/" component={App}>
@@ -16,8 +17,8 @@ export default (
     <Route path="login" component={LoginPage}/>
 
     <Route onEnter={requireAuth}>
-      <Route path="dashboard" component={DashboardPage}>
-        // NOt using this to display data
+      <Route path="dashboard" component={DashboardPage} >
+        <Route path="home" component={DashboardDetailsPage} />
         <Route path="categories" component={CategoryPage} />
       </Route>
     </Route>

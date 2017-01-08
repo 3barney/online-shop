@@ -24,7 +24,9 @@ class DashboardPage extends React.Component {
       <div className=".dashboardSize">
         <HeaderPage logged_user={this.state.loggedInUser} />
         <div>
-          <SideBar logged_user={this.state.loggedInUser} />
+          <SideBar logged_user={this.state.loggedInUser} >
+            {this.props.children}
+          </SideBar>
         </div>
       </div>
     );
