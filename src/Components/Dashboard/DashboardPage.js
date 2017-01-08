@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 import HeaderPage from './HeaderPage';
 import SideBar from './SideBar';
 
-class DashboardPage extends React.Component {
+export class DashboardPage extends React.Component {
   constructor(props, context){
     super(props, context);
 
@@ -34,7 +34,8 @@ class DashboardPage extends React.Component {
 }
 
 DashboardPage.propTypes = {
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  children: PropTypes.object
 };
 
 function mapStateToProps(state){

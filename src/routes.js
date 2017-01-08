@@ -5,7 +5,7 @@ import Authentication from './Components/Authentication/Authenticator';
 import HomePage from './Components/Home/HomePage';
 import LoginPage from './Components/Authentication/login/LoginPage'; //eslint-disable-line import/no-named-as-default
 import RegisterPage from './Components/Authentication/register/RegisterPage'; //eslint-disable-line import/no-named-as-default
-import DashboardPage from './Components/Dashboard/DashboardPage';
+import {DashboardPage} from './Components/Dashboard/DashboardPage';
 import CategoryPage from './Components/Categories/CategoryPage';
 import DashboardDetailsPage from './Components/Dashboard/DashboardDetailsPage';
 

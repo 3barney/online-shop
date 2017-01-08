@@ -23,6 +23,7 @@ class SideBar extends React.Component {
   }
 
   redirectToDashboard(){
+    this.setState({activeItem: name});
     browserHistory.push("/dashboard/home");
     //browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.loggedUSerData}});
   }
@@ -30,7 +31,7 @@ class SideBar extends React.Component {
   redirectToCatergories(){
 
     //ReactDOM.render(<CategoryPage /> , document.getElementById('root-dashboard'));
-    //this.setState({activeItem: name});
+    this.setState({activeItem: name});
     browserHistory.push("/dashboard/categories");
   }
 
@@ -92,7 +93,6 @@ class SideBar extends React.Component {
 
           <Sidebar.Pusher className="sidebarr">
            <div id="root-dashboard">
-             {console.log(this.props.children)}
              {this.props.children}
            </div>
          </Sidebar.Pusher>
@@ -107,7 +107,8 @@ class SideBar extends React.Component {
 }
 
 SideBar.propTypes = {
-  logged_user: PropTypes.string.isRequired
+  logged_user: PropTypes.string.isRequired,
+  children: PropTypes.object
 };
 
 export default SideBar;
