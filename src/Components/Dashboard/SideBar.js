@@ -25,12 +25,9 @@ class SideBar extends React.Component {
   redirectToDashboard(){
     this.setState({activeItem: name});
     browserHistory.push("/dashboard/home");
-    //browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.loggedUSerData}});
   }
 
   redirectToCatergories(){
-
-    //ReactDOM.render(<CategoryPage /> , document.getElementById('root-dashboard'));
     this.setState({activeItem: name});
     browserHistory.push("/dashboard/categories");
   }
@@ -57,7 +54,7 @@ class SideBar extends React.Component {
               </Menu.Item>
 
               <Menu.Item name="categories" active={activeItem === 'categories'}
-                onClick={this.redirectToCatergories}>
+                onClick={this.redirectToCatergories}  >
                 <Icon name="tasks" />
                 Categories
               </Menu.Item>
@@ -112,3 +109,11 @@ SideBar.propTypes = {
 };
 
 export default SideBar;
+
+/*
+<Menu.Item name="categories" active={activeItem === 'categories'}
+  onClick={this.redirectToCatergories}>
+  <Icon name="tasks" />
+  Categories
+</Menu.Item>
+*/
