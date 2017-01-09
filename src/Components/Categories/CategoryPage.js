@@ -51,6 +51,7 @@ class CategoryPage extends React.Component {
       <Segment.Group>
         <Segment compact>
           <Button primary color="blue" type="button"
+            disabled={this.state.fetchingCategories}
             name="submitCategory"
             onClick={this.redirectToAddNewCategory}
             content="Add New Category" />

@@ -8,7 +8,8 @@ import RegisterPage from './Components/Authentication/register/RegisterPage'; //
 import DashboardPage from './Components/Dashboard/DashboardPage';//eslint-disable-line import/no-named-as-default
 import CategoryPage from './Components/Categories/CategoryPage';
 import DashboardDetailsPage from './Components/Dashboard/DashboardDetailsPage';
-import ManageCategoryPage from './Components/Categories/ManageCategoryPage';
+import ManageCategoryPage from './Components/Categories/ManageCategoryPage'; //eslint-disable-line import/no-named-as-default
+
 export default (
   <Route path="/" component={App}>
     // load App component and then Nest other components and pass them as children
@@ -21,6 +22,7 @@ export default (
         <Route path="home" component={DashboardDetailsPage} />
         <Route path="categories" component={CategoryPage} />
         <Route path="categories/add" component={ManageCategoryPage} />
+        <Route path="categories/add/:id" component={ManageCategoryPage} />
       </Route>
     </Route>
   </Route>
