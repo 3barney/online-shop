@@ -1,4 +1,5 @@
 import delay from './delay';
+import * as _ from 'lodash';
 
 const categories = [
   {
@@ -31,6 +32,10 @@ const generateCategoryId = (category) => {
   return replaceAll(category.name, ' ', '-');
 };
 
+const generateCategorySlug = (category) => {
+    return replaceAll(_.lowerCase(category.name), ' ', '-');
+};
+
 class CategoryApi {
   static getAllCategories(){
     return new Promise( (resolve, reject) => {
@@ -54,9 +59,11 @@ class CategoryApi {
         } else {
           // simulate creation
           category.id = generateCategoryId(category);
+          category.slug = generateCategorySlug(category);
           categories.push(category);
         }
-        resolve(Object.assign({}, category));
+        //resolve(Object.assign({}, category));
+        resolve([category])
       }, delay);
     });
   }

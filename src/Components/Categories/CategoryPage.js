@@ -3,7 +3,8 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
-import {loadCategories} from './CategoryActions';
+import {bindActionCreators} from 'redux';
+import * as categoriesActions from './CategoryActions';
 import toastr from 'toastr';
 import {Progress, Segment, Form, Button, Input, Header, Divider} from 'semantic-ui-react';
 import * as _ from 'lodash';
@@ -15,30 +16,63 @@ class CategoryPage extends React.Component {
     super(props, context);
 
     this.state = {
-      categories: [], fetchingCategories: true, percent: 50, addCategory: false
+      categories: [],
+      fetchingCategories: true,
+      addingCategory: false,
+      category: {name: ' '}
     };
+
+    this.onChange = this.onChange.bind(this);
+    this.addCategory = this.addCategory.bind(this);
   }
 
   componentWillMount(){
-    const categoryData = loadCategories();
-    categoryData
-      .then( (data) => {
-        this.setState({fetchingCategories: false, categories: data.categories, percent: 100});
+    this.props.actions.loadCategories()
+      .then( () => {
+        this.setState({fetchingCategories: false});
       })
       .catch( (error) => {
         toastr.error(error);
       });
   }
 
-  addCategory(){
-    browserHistory.push('/dashboard/category');
+  componentWillReceiveProps(nextProps){
+    if(this.props.categoryReducer != nextProps.categoryReducer){
+      this.setState({categories: nextProps.categoryReducer});
+    }
   }
 
+  onChange(event) {
+    const field = event.target.name;
+    const category = this.state.category;
+    category[field] = event.target.value;
+    return this.setState({category: category});
+  }
+
+  addCategory(){
+    event.preventDefault();
+    this.setState({addingCategory: true});
+    this.props.actions.saveCategory(this.state.category)
+      .then( ()=> this.redirect())
+      .catch(error => {
+        toastr.error(error);
+        this.setState({addingCategory: false});
+      });
+  }
+
+  redirect(){
+    this.setState({addingCategory:false});
+    toastr.success('Category Saved');
+    // this.state.categories.push(this.state.category); // TODO: HACK to make it work
+    this.context.router.push('/dashboard/categories'); // After save redirect to /courses
+  }
 
   render () {
+    const {categoryReducer} = this.props;
+    console.log(categoryReducer)
     return (
       <Segment.Group>
-        <Segment padded size="large"
+        <Segment padded size="large" loading={this.state.addCategory}
           color="blue"
           className="text container">
           <Form loading={this.state.addCategory}>
@@ -46,7 +80,8 @@ class CategoryPage extends React.Component {
             <Form.Field inline>
               <label>Category Name</label>
               <Input fluid
-                name="categoryName"
+                onChange={this.onChange}
+                name="name"
                 placeholder="Category Name" />
             </Form.Field>
 
@@ -68,7 +103,28 @@ class CategoryPage extends React.Component {
   }
 }
 
-export default CategoryPage;
+CategoryPage.propTypes = {
+  actions: PropTypes.object.isRequired,
+  categoryReducer: PropTypes.array.isRequired
+};
+
+CategoryPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+  return {
+    categoryReducer: state.categoryReducer
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(categoriesActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage);
 
 
 /*

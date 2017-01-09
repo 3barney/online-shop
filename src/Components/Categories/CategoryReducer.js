@@ -6,6 +6,9 @@ export default function categoryReducer(state = initialState.categories, action)
     case types.LOAD_CATEGORIES_SUCCESS:
       return action.categories;
 
+    case types.CREATE_CATEGORY_SUCCESS:
+      return action.categories;
+
     default:
       return state;
   }
