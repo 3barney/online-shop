@@ -2,11 +2,13 @@ import {combineReducers} from 'redux';
 import loginReducer from '../Components/Authentication/login/LoginReducer';
 import registerReducer from '../Components/Authentication/register/RegisterReducer';
 import categoryReducer from '../Components/Categories/CategoryReducer';
+import productsReducer from '../Components/Products/ProductReducer';
 
 const appReducer = combineReducers({
   loginReducer,
   registerReducer,
-  categoryReducer
+  categoryReducer,
+  productsReducer
 });
 
 const rootReducer = (state, action) => {
