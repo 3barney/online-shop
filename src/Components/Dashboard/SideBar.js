@@ -32,6 +32,10 @@ class SideBar extends React.Component {
     browserHistory.push("/dashboard/categories");
   }
 
+  redirectToProducts(){
+    browserHistory.push("/dashboard/products");
+  }
+
   render() {
     if (!_.isNil(this.state.loggedUSerData)){
       const {activeItem} = this.state;
@@ -64,7 +68,7 @@ class SideBar extends React.Component {
                 Products
                 <Menu.Menu>
                   <Menu.Item name="list-products" active={activeItem === 'list-products'}
-                   onClick={this.handleItemClick} >
+                   onClick={this.redirectToProducts} >
                    List
                  </Menu.Item>
                  <Menu.Item name="add-products" active={activeItem == 'add-products'}

@@ -6,9 +6,10 @@ import HomePage from './Components/Home/HomePage';
 import LoginPage from './Components/Authentication/login/LoginPage'; //eslint-disable-line import/no-named-as-default
 import RegisterPage from './Components/Authentication/register/RegisterPage'; //eslint-disable-line import/no-named-as-default
 import DashboardPage from './Components/Dashboard/DashboardPage';//eslint-disable-line import/no-named-as-default
-import CategoryPage from './Components/Categories/CategoryPage';
 import DashboardDetailsPage from './Components/Dashboard/DashboardDetailsPage';
+import CategoryPage from './Components/Categories/CategoryPage';
 import ManageCategoryPage from './Components/Categories/ManageCategoryPage'; //eslint-disable-line import/no-named-as-default
+import ProductPage from './Components/Products/ProductPage';
 
 export default (
   <Route path="/" component={App}>
@@ -23,6 +24,7 @@ export default (
         <Route path="categories" component={CategoryPage} />
         <Route path="categories/add" component={ManageCategoryPage} />
         <Route path="categories/add/:id" component={ManageCategoryPage} />
+        <Route path="products" component={ProductPage} />
       </Route>
     </Route>
   </Route>
