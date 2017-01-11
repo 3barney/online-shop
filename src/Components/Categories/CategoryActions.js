@@ -10,7 +10,7 @@ export function createCategorySuccess(categories) {
 }
 
 export function updateCategorySuccess(category) {
-  // TODO: yet to be implemented plus DELETE option
+  return { type: types.UPDATE_CATEGORY_SUCCESS, category};
 }
 
 export function loadCategories() {
@@ -29,28 +29,13 @@ export function saveCategory(category) {
   return function(dispatch) {
     return CategoryApi.saveCategory(category)
       .then( cat => {
-        dispatch(createCategorySuccess(cat));
+        dispatch(createCategorySuccess  (cat));
+        // TODO: Make this work
+        // if id exists, we update a category that already has an ID
+        //cat.id ? dispatch(updateCategorySuccess(cat)) : dispatch(createCategorySuccess(cat));
       })
       .catch( error => {
         throw error;
       });
   };
 }
-
-
-
-/*
-export function saveCourse(course) {
-  return function(dispatch, getState){
-    dispatch(beginAjaxCall());
-    return courseApi.saveCourse(course)
-      .then(course => {
-        // if id exists, we update a course that already has an ID
-        course.id ? dispatch(updateCourseSuccess(course)) : dispatch(createCourseSuccess(course));
-      })
-      .catch(error => {
-        throw(error);
-      });
-  };
-}
-*/

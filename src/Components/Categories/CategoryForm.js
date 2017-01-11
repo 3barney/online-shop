@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {Segment, Form, Input, Button, Header} from 'semantic-ui-react';
 
 const CategoryForm = ({category, onChange, addCategory, saving}) => {
-  console.log(category)
   return (
     <Segment padded size="large" color="blue" className="text container">
       <Form>

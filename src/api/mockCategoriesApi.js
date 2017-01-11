@@ -41,7 +41,7 @@ class CategoryApi {
     return new Promise( (resolve, reject) => {
       setTimeout( () => {
         resolve(Object.assign([], categories));
-      }, 2000);
+      }, delay);
     });
   }
 
@@ -53,6 +53,7 @@ class CategoryApi {
           reject(`Name must be at least ${minCategoryNameLength} characters.`);
         }
 
+
         if(category.id) {
           const existingCourseIndex = category.findIndex(a => a.id == category.id);
           categories.splice(existingCourseIndex, 1, category);
@@ -62,8 +63,7 @@ class CategoryApi {
           category.slug = generateCategorySlug(category);
           categories.push(category);
         }
-        //resolve(Object.assign({}, category));
-        resolve([category])
+        resolve(Object.assign([], category));
       }, delay);
     });
   }
