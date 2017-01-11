@@ -54,6 +54,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
     "flow-bin": "^0.35.0",
+    "image-webpack-loader": "^3.1.0",
     "jsdom": "8.5.0",
     "mocha": "2.4.5",
     "mock-local-storage": "^1.0.2",
