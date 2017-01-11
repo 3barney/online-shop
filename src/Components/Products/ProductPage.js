@@ -13,8 +13,10 @@ class ProductPage extends React.Component {
 
     this.state = {
       products: [],
-      fetchingProducts: false
+      fetchingProducts: true
     };
+
+    this.redirectToAddNewProduct = this.redirectToAddNewProduct.bind(this);
   }
 
   componentWillMount() {
@@ -33,18 +35,22 @@ class ProductPage extends React.Component {
     }
   }
 
+  redirectToAddNewProduct(){
+    browserHistory.push('/dashboard/products/add');
+  }
+
   render() {
     return (
       <Segment.Group>
         <Segment compact>
           <Button primary color="blue" type="button"
-            disabled={this.state.fetchingCategories}
+            disabled={this.state.fetchingProducts}
             name="submitCategory"
             onClick={this.redirectToAddNewProduct}
-            content="Add New Category" />
+            content="Add New Product" />
         </Segment>
-        <Segment color="teal" loading={this.state.fetchingCategories}>
-          <Header textAlign="center" size="medium">EXISTING CATEGORIES</Header>
+        <Segment color="teal" loading={this.state.fetchingProducts}>
+          <Header textAlign="center" size="medium">PRODUCTS</Header>
           <ProductList products={this.state.products} />
         </Segment>
       </Segment.Group>

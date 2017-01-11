@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
 import * as _ from 'lodash';
 import CategoryForm from './CategoryForm';
-
 import * as categoriesActions from './CategoryActions';
 
 export class ManageCategoryPage extends React.Component {

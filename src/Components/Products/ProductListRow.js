@@ -6,7 +6,7 @@ const ProductListRow = ({product}) => {
   return (
     <Table.Row>
       <Table.Cell>
-        <Link to={'/dashboard/categories/add/'+product.id}>{product.name}</Link>
+        <Link to={'/dashboard/products/add/'+product.id}>{product.name}</Link>
       </Table.Cell>
       <Table.Cell>{product.price}</Table.Cell>
       <Table.Cell>{product.categoryName}</Table.Cell>

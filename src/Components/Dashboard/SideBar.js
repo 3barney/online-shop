@@ -63,19 +63,10 @@ class SideBar extends React.Component {
                 Categories
               </Menu.Item>
 
-              <Menu.Item>
-                <Icon name="sidebar" />
+              <Menu.Item name="products" active={activeItem === 'products'}
+                onClick={this.redirectToProducts}  >
+                <Icon name="tasks" />
                 Products
-                <Menu.Menu>
-                  <Menu.Item name="list-products" active={activeItem === 'list-products'}
-                   onClick={this.redirectToProducts} >
-                   List
-                 </Menu.Item>
-                 <Menu.Item name="add-products" active={activeItem == 'add-products'}
-                   onClick={this.handleItemClick} >
-                   Add
-                 </Menu.Item>
-                </Menu.Menu>
               </Menu.Item>
 
               <Menu.Item name="orders" active={activeItem === 'orders'}
@@ -115,9 +106,18 @@ SideBar.propTypes = {
 export default SideBar;
 
 /*
-<Menu.Item name="categories" active={activeItem === 'categories'}
-  onClick={this.redirectToCatergories}>
-  <Icon name="tasks" />
-  Categories
+<Menu.Item>
+  <Icon name="sidebar" />
+  Products
+  <Menu.Menu>
+    <Menu.Item name="list-products" active={activeItem === 'list-products'}
+     onClick={this.redirectToProducts} >
+     List
+   </Menu.Item>
+   <Menu.Item name="add-products" active={activeItem == 'add-products'}
+     onClick={this.handleItemClick} >
+     Add
+   </Menu.Item>
+  </Menu.Menu>
 </Menu.Item>
 */
