@@ -12,7 +12,7 @@ import  '../node_modules/toastr/build/toastr.min.css';
 import '../node_modules/semantic-ui-css/semantic.css';
 import './styles/styles.css';
 
-const store = configureStore();
+const store = configureStore(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 render (
   <Provider store={store}>
