@@ -26,11 +26,10 @@ class ManageProductPage extends React.Component {
     }
   }
 
-  onChange(event, {vvalue}) {
+  onChange(event) {
     const field = event.target.name;
     const product = this.state.product;
     product[field] = _.trim(event.target.value);
-    //product[field] = _.trim(vvalue);
     return this.setState({product: product});
   }
 
@@ -73,6 +72,7 @@ ManageProductPage.propTypes = {
 ManageProductPage.contextTypes = {
   router: PropTypes.object.isRequired
 };
+
 function getProductyById(products, id) {
   const product = products.filter(product => product.id == id);
   if (product) return product[0]; // Filter returns an array so grab First elem at index 0

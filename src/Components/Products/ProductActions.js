@@ -22,8 +22,6 @@ export function loadProducts() {
 }
 
 export function saveProduct(product) {
-  console.log(product)
-  debugger;
   return function(dispatch) {
     return ProductApi.saveProduct(product)
       .then( prod => {

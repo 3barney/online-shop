@@ -38,3 +38,7 @@
   padding: 1rem 0 0 1rem;
   width: 80%;
 }
+
+.dropdown-pad {
+  padding: 0 0 0 0 !important;
+}

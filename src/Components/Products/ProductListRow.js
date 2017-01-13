@@ -8,7 +8,7 @@ const ProductListRow = ({product}) => {
       <Table.Cell>
         <Link to={'/dashboard/products/add/'+product.id}>{product.name}</Link>
       </Table.Cell>
-      <Table.Cell>{product.price}</Table.Cell>
+      <Table.Cell>ksh {product.price}</Table.Cell>
       <Table.Cell>{product.categoryName}</Table.Cell>
       <Table.Cell>{product.quantity}</Table.Cell>
       <Table.Cell><Image src={product.image} avatar /></Table.Cell>

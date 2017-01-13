@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import {Segment, Form, Input, Button, Header, Dropdown, Label} from 'semantic-ui-react';
+import {Segment, Form, Input, Button, Header, Label, Dropdown} from 'semantic-ui-react';
+import SelectInput from '../../common/SelectInput';
 
 const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) => {
 
@@ -25,6 +26,14 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
           </Input>
         </Form.Field>
         <Form.Field inline>
+          <label>Quantity</label>
+          <Input fluid
+            name="quantity"
+            placeholder="Quantity"
+            defaultValue={product.quantity}
+            onChange={onChange}  />
+        </Form.Field>
+        <Form.Field inline>
           <label>Color</label>
           <Input fluid
             name="color"
@@ -41,12 +50,13 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
             onChange={onChange}  />
         </Form.Field>
         <Form.Field>
-          <label>Product Category</label>
-          <Dropdown placeholder="Select Category" search selection
-            name="category"
-            onChange={onChange}
-            defaultValue={product.categoryName}
-            options={allCategories} />
+          <SelectInput
+            name="categoryName"
+            label="Product Category"
+            value={product.categoryName}
+            defaultOption="Select Product Category"
+            options={allCategories}
+            onChange={onChange} />
         </Form.Field>
 
         <Button primary color="blue" type="button"

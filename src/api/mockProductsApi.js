@@ -1,5 +1,13 @@
 import delay from './delay';
 
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+
+const generateProductId = (product) => {
+  return replaceAll(product.name, ' ', '-');
+};
+
 class ProductApi {
   static getAllProducts() {
     return new Promise( (resolve, reject) => {
@@ -8,13 +16,53 @@ class ProductApi {
       }, delay);
     });
   }
+
+  static saveProduct(product) {
+    return new Promise( (resolve, reject) => {
+      if(product.id) {
+        const existingProductIndex = product.findIndex(a => a.id == product.id);
+        products.splice(existingProductIndex, 1, product);
+      } else {
+        product.id = generateProductId(product);
+        // product.name = generateCategorySlug(product);
+        products.push(product);
+      }
+      resolve(Object.assign([], product));
+    }, delay);
+  }
+
 }
+
+/*
+static saveCategory(category) {
+  return new Promise( (resolve,reject) => {
+    setTimeout( () => {
+      const minCategoryNameLength = 1;
+      if (category.name.length < minCategoryNameLength) {
+        reject(`Name must be at least ${minCategoryNameLength} characters.`);
+      }
+
+
+      if(category.id) {
+        const existingCourseIndex = category.findIndex(a => a.id == category.id);
+        categories.splice(existingCourseIndex, 1, category);
+      } else {
+        // simulate creation
+        category.id = generateCategoryId(category);
+        category.slug = generateCategorySlug(category);
+        categories.push(category);
+      }
+
+    }, delay);
+  });
+}
+*/
 
 const products = [
   {
     id: 'audacity-of-hope',
     name: 'Audacity of Hope',
-    price: 'ksh 1000.50',
+    price: '1000.50',
     descriprion: 'Thoughts on Reclaiming the American Dream is the second book written by then-Senator Barack Obama',
     color: '',
     size: '',
@@ -26,7 +74,7 @@ const products = [
   {
     id: 'facing-mount-kenya',
     name: 'Facing Mount Kenya',
-    price: 'ksh 800.50',
+    price: '800.50',
     descriprion: 'Book written by First president of Kenya Jomo Kenyatta',
     color: '',
     size: '',
@@ -38,7 +86,7 @@ const products = [
   {
     id: 'vegetables',
     name: 'Vegetables',
-    price: 'ksh 190',
+    price: '190',
     descriprion: 'a vegetable is any part of a plant that is consumed by humans as food as part of a savory meal.',
     color: 'green',
     size: '',
@@ -50,7 +98,7 @@ const products = [
   {
     id: 'milk',
     name: 'Milk',
-    price: 'ksh 100',
+    price: '100',
     descriprion: 'Milk is a pale liquid produced',
     color: 'white',
     size: '',
@@ -62,7 +110,7 @@ const products = [
   {
     id: 'televisons',
     name: 'Televisions',
-    price: 'ksh 10,000',
+    price: '10,000',
     descriprion: 'a telecommunication medium used for transmitting moving images in monochrome (black-and-white), or in color',
     color: 'black, white',
     size: '17, 18 inches',
@@ -74,7 +122,7 @@ const products = [
   {
     id: 'home-theaters',
     name: 'Home Theater',
-    price: 'ksh 100,000',
+    price: '100,000',
     descriprion: 'A "home theater in a box" (HTIB) is an integrated home theater package which "bundles" together a combination DVD or Blu-ray player, ',
     color: 'black',
     size: '',
