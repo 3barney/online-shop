@@ -53,10 +53,9 @@ class CategoryApi {
           reject(`Name must be at least ${minCategoryNameLength} characters.`);
         }
 
-
         if(category.id) {
-          const existingCourseIndex = category.findIndex(a => a.id == category.id);
-          categories.splice(existingCourseIndex, 1, category);
+          const existingCategoryIndex = categories.findIndex(a => a.id == category.id);
+          categories.splice(existingCategoryIndex, 1, category);
         } else {
           // simulate creation
           category.id = generateCategoryId(category);

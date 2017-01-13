@@ -29,10 +29,8 @@ export function saveCategory(category) {
   return function(dispatch) {
     return CategoryApi.saveCategory(category)
       .then( cat => {
-        dispatch(createCategorySuccess  (cat));
-        // TODO: Make this work
         // if id exists, we update a category that already has an ID
-        //cat.id ? dispatch(updateCategorySuccess(cat)) : dispatch(createCategorySuccess(cat));
+        cat.id ? dispatch(updateCategorySuccess(cat)) : dispatch(createCategorySuccess(cat));
       })
       .catch( error => {
         throw error;

@@ -10,7 +10,9 @@ export class ManageCategoryPage extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state = {
-      category: {category: {name: ''}},
+      //product: Object.assign({}, this.props.product),
+      //category: {category: {name: ''}},
+      category: Object.assign({}, this.props.category),
       saving: false
     };
 
@@ -21,7 +23,6 @@ export class ManageCategoryPage extends React.Component {
   componentWillReceiveProps(nextProps){
     if (this.props.category.id != nextProps.category.id) {
       this.setState({category: Object.assign({}, nextProps.category)});
-      //this.setState({category: nextProps.category});
     }
   }
 
@@ -52,7 +53,7 @@ export class ManageCategoryPage extends React.Component {
   render() {
     return(
       <CategoryForm
-        category={this.props.category}
+        category={this.state.category}
         onChange={this.onChange}
         addCategory={this.addCategory}
         saving={this.state.saving} />
@@ -78,7 +79,7 @@ function getCategoryById(categories, id) {
 
 function mapStateToProps(state, ownProps) {
   const categoryId = ownProps.params.id; // Fetch Cat.Id from URL
-  let category = {id: ' ', name: ' ', slug: ' '};
+  let category = {id: '', name: '', slug: ''};
   if (categoryId && state.categoryReducer.length > 0) {
     // Pass it all categories in state and of-course ID
     category = getCategoryById(state.categoryReducer, categoryId);
