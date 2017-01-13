@@ -10,7 +10,7 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
         <Form.Field inline>
           <label>Name</label>
           <Input fluid
-            name="productName"
+            name="name"
             placeholder="Product Name"
             defaultValue={product.name}
             onChange={onChange}  />
@@ -18,7 +18,7 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
         <Form.Field inline>
           <label>Price</label>
           <Input fluid labelPosition="right" type="text" placeholder="Amount"
-            name="productPrice" defaultValue={product.price} onChange={onChange}>
+            name="price" defaultValue={product.price} onChange={onChange}>
             <Label basic>Ksh</Label>
             <input />
             <Label>.00</Label>
@@ -27,7 +27,7 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
         <Form.Field inline>
           <label>Color</label>
           <Input fluid
-            name="productColor"
+            name="color"
             placeholder="Product Color"
             defaultValue={product.color}
             onChange={onChange}  />
@@ -35,7 +35,7 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
         <Form.Field inline>
           <label>Size</label>
           <Input fluid
-            name="productSize"
+            name="size"
             placeholder="Product size"
             defaultValue={product.size}
             onChange={onChange}  />
@@ -43,6 +43,9 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
         <Form.Field>
           <label>Product Category</label>
           <Dropdown placeholder="Select Category" search selection
+            name="category"
+            onChange={onChange}
+            defaultValue={product.categoryName}
             options={allCategories} />
         </Form.Field>
 

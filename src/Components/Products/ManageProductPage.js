@@ -11,9 +11,13 @@ class ManageProductPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      product:  {name: ' ', color: '', price: '', size: '', category: ''},
+      //product:  {name: '', color: '', price: '', size: '', category: ''},
+      product: Object.assign({}, this.props.product),
       saving: false
     };
+
+      this.onChange = this.onChange.bind(this);
+      this.saveProduct = this.saveProduct.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -22,15 +26,23 @@ class ManageProductPage extends React.Component {
     }
   }
 
-  onChange(event) {
+  onChange(event, {vvalue}) {
     const field = event.target.name;
     const product = this.state.product;
     product[field] = _.trim(event.target.value);
+    //product[field] = _.trim(vvalue);
     return this.setState({product: product});
   }
 
-  saveProduct(){
-    // TODO: add api and action first
+  saveProduct(event){
+    event.preventDefault();
+    this.setState({saving: true});
+    this.props.actions.saveProduct(this.state.product)
+      .then( () => this.redirect())
+      .catch( error => {
+        toastr.error(error);
+        this.setState({saving: false});
+      });
   }
 
   redirect() {
@@ -69,7 +81,7 @@ function getProductyById(products, id) {
 
 function mapStateToProps(state, ownProps) {
   const productId = ownProps.params.id;
-   let product = {name: ' ', color: '', price: '', size: '', category: ''};
+   let product = {name: ' ', color: '', price: '', size: '', categoryName: ''};
    if (productId && state.productsReducer > 0) {
      product = getProductyById(state.productsReducer, productId);
    }
