@@ -81,24 +81,24 @@ function getProductyById(products, id) {
 
 function mapStateToProps(state, ownProps) {
   const productId = ownProps.params.id;
-   let product = {name: ' ', color: '', price: '', size: '', categoryName: ''};
-   if (productId && state.productsReducer > 0) {
-     product = getProductyById(state.productsReducer, productId);
-   }
+  let product = {name: '', color: '', price: '', size: '', categoryName: ''};
+  if (productId && state.productsReducer.length > 0) {
+   product = getProductyById(state.productsReducer, productId);
+  }
 
-   const productCategoriesFormattedForDropdown = state.productsReducer.map( product => {
-     return {
-       value : product.category_id,
-       text: product.categoryName
-     };
-   });
+  const productCategoriesFormattedForDropdown = state.productsReducer.map( product => {
+    return {
+      value : product.category_id,
+      text: product.categoryName
+    };
+  });
 
-   // since value is our index
-   const productCategories = _.uniqBy(productCategoriesFormattedForDropdown, 'value');
+  // since value is our index
+  const productCategories = _.uniqBy(productCategoriesFormattedForDropdown, 'value');
 
-   return {
-     product: product,
-     categories: productCategories
+  return {
+    product: product,
+    categories: productCategories
    };
 
 }

@@ -20,11 +20,10 @@ class ProductApi {
   static saveProduct(product) {
     return new Promise( (resolve, reject) => {
       if(product.id) {
-        const existingProductIndex = product.findIndex(a => a.id == product.id);
+        const existingProductIndex = products.findIndex(a => a.id == product.id);
         products.splice(existingProductIndex, 1, product);
       } else {
         product.id = generateProductId(product);
-        // product.name = generateCategorySlug(product);
         products.push(product);
       }
       resolve(Object.assign([], product));
@@ -32,31 +31,6 @@ class ProductApi {
   }
 
 }
-
-/*
-static saveCategory(category) {
-  return new Promise( (resolve,reject) => {
-    setTimeout( () => {
-      const minCategoryNameLength = 1;
-      if (category.name.length < minCategoryNameLength) {
-        reject(`Name must be at least ${minCategoryNameLength} characters.`);
-      }
-
-
-      if(category.id) {
-        const existingCourseIndex = category.findIndex(a => a.id == category.id);
-        categories.splice(existingCourseIndex, 1, category);
-      } else {
-        // simulate creation
-        category.id = generateCategoryId(category);
-        category.slug = generateCategorySlug(category);
-        categories.push(category);
-      }
-
-    }, delay);
-  });
-}
-*/
 
 const products = [
   {

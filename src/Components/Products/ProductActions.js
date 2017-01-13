@@ -9,6 +9,10 @@ export function createProductSuccess(products) {
   return {type: types.CREATE_PRODUCT_SUCCESS, products};
 }
 
+export function updateProductSuccess(products) {
+  return { type: types.UPDATE_PRODUCT_SUCCESS, products};
+}
+
 export function loadProducts() {
   return function (dispatch) {
     return ProductApi.getAllProducts()
@@ -25,10 +29,8 @@ export function saveProduct(product) {
   return function(dispatch) {
     return ProductApi.saveProduct(product)
       .then( prod => {
-        dispatch(createProductSuccess(prod));
-        // TODO: Make this work
         // if id exists, we update a category that already has an ID
-        //cat.id ? dispatch(updateCategorySuccess(cat)) : dispatch(createCategorySuccess(cat));
+        prod.id ? dispatch(updateProductSuccess(prod)) : dispatch(createProductSuccess(prod));
       })
       .catch( error => {
         throw error;
