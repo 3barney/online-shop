@@ -52,37 +52,39 @@ describe('Login page component test', () => {
     expect(wrapper.find('Button').first().props().content).toEqual('Login');
   });
 
-  it('sets error message when trying to login with empty email and password', () => {
-    const props = {
-      loggingIn: false,
-      credentials: {credentials : {email: '', password: ''}},
-      actions: { onLogin: () => { return Promise.resolve(); }}
-    };
-    const wrapper = mount(
-      <LoginPage {...props} />
-    );
-    const loginButton = wrapper.find('Button').first();
-    expect(loginButton.prop('content')).toBe('Login');
-    loginButton.simulate('click');
-    expect(wrapper.state().errors.email).toBe('Not a Valid email Address!');
-    expect(wrapper.state().errors.password).toBe('Password to short');
-    wrapper.setState({});
-  });
-
-  it('sets error message when trying to login with incorrect email and password', () => {
-    const props = {
-      credentials: {credentials : {email: 'bababa@baba', password: 'ba'}},
-      actions: { onLogin: () => { return Promise.resolve(); }}
-    };
-    const wrapper = mount(
-      <LoginPage {...props} />
-    );
-    const loginButton = wrapper.find('Button').first();
-    expect(loginButton.prop('content')).toBe('Login');
-    loginButton.simulate('click');
-    expect(wrapper.state().errors.email).toBe('Not a Valid email Address!');
-    expect(wrapper.state().errors.password).toBe('Password to short');
-    wrapper.setState({});
-  });
-
 });
+/*
+it('sets error message when trying to login with empty email and password', () => {
+  const props = {
+    loggingIn: false,
+    credentials: {credentials : {email: '', password: ''}},
+    actions: { onLogin: () => { return Promise.resolve(); }}
+  };
+  const wrapper = mount(
+    <LoginPage {...props} />
+  );
+  const loginButton = wrapper.find('Button').first();
+  expect(loginButton.prop('content')).toBe('Login');
+  loginButton.simulate('click');
+  expect(wrapper.state().errors.email).toBe('Not a Valid email Address!');
+  expect(wrapper.state().errors.password).toBe('Password to short');
+  wrapper.setState({});
+});
+
+it('sets error message when trying to login with incorrect email and password', () => {
+  const props = {
+    credentials: {credentials : {email: 'bababa@baba', password: 'ba'}},
+    actions: { onLogin: () => { return Promise.resolve(); }}
+  };
+  const wrapper = mount(
+    <LoginPage {...props} />
+  );
+  const loginButton = wrapper.find('Button').first();
+  expect(loginButton.prop('content')).toBe('Login');
+  loginButton.simulate('click');
+  expect(wrapper.state().errors.email).toBe('Not a Valid email Address!');
+  expect(wrapper.state().errors.password).toBe('Password to short');
+  wrapper.setState({});
+});
+
+*/

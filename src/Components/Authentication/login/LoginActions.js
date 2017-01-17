@@ -1,3 +1,6 @@
+import axios from 'axios';
+import qs from 'qs';
+import * as configFile from '../../../config/config';
 import * as types from '../../../actions/actionTypes';
 import LoginApi from '../../../api/mockLoginApi';
 
@@ -12,14 +15,13 @@ export function logoutSuccess(){
 // THUNK
 export function loginUser(credentials) {
   return function(dispatch) {
-    // dispatch(beginAjaxCall)
-    return LoginApi.login(credentials)
-      .then( user => {
-        window.localStorage.setItem('shopID_token', user.token);
-        dispatch(loginSuccess(user));
+    return axios.post(`${configFile.BASE_API_URL}/user/login`, qs.stringify(credentials))
+      .then( loggedUser => {
+        window.localStorage.setItem('shopID_token', loggedUser.data.token);
+        dispatch(loginSuccess(loggedUser.data.userData));
       })
-      .catch(error => {
-        throw(error);
+      .catch( error => {
+        throw((error.response.data));
       });
   };
 }

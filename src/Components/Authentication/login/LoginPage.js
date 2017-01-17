@@ -22,6 +22,13 @@ export class LoginPage extends React.Component {
     this.loginFormIsValid = this.loginFormIsValid.bind(this);
   }
 
+  componentDidMount() {
+    if(!_.isNil(localStorage.getItem('shopID_token'))){
+      localStorage.removeItem('shopID_token'); // Remove user Token
+      localStorage.removeItem('loggedInUser');
+    }
+  }
+
   onChange(event) {
     const field = event.target.name;
     const credentials = this.state.credentials;
@@ -38,11 +45,12 @@ export class LoginPage extends React.Component {
 
     this.setState({loggingIn: true});
     this.props.actions.loginUser(this.state.credentials)
-      .then( ()=> {
+      .then( (user)=> {
+        console.log(user);
         this.redirectToDashboard();
       })
       .catch( (error) => {
-        toastr.error(error);
+        toastr.error(error.message);
         this.setState({loggingIn: false});
         this.setState({isUserLoggedIn: false});
       });
