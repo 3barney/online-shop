@@ -89,18 +89,19 @@ export class RegisterPage extends React.Component {
     this.setState({registering: true});
     this.props.actions.registerUser(this.state.userData)
       .then( (registeredUser) => {
-        this.redirectToDashboard(registeredUser);
+        this.redirectToDashboard();
       })
-      .catch( (error) => {
-        toastr.error(error);
+      .catch( (errors) => {
+        {errors.map(error => toastr.error(error));}
         this.setState({registering: false});
       });
   }
 
-  redirectToDashboard(user){
+  redirectToDashboard(){
     this.setState({registering: false});
     toastr.success('Registration Successfull');
-    browserHistory.push({pathname: '/dashboard', state: {user_info: this.state.userData}});
+    window.localStorage.setItem('loggedInUser', this.state.userData.email);
+    browserHistory.push("/dashboard");
   }
 
   render() {
@@ -162,7 +163,7 @@ export class RegisterPage extends React.Component {
 
             <Button primary color="teal" size="big" type="button"
               onClick={this.onRegister}
-              disabled={this.state.registering}
+              disabled={this.state.errors && this.state.registering}
               content={this.state.registering ? 'Processing...': 'Register'} />
           </Form>
         </Segment>
