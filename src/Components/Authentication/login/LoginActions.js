@@ -2,7 +2,6 @@ import axios from 'axios';
 import qs from 'qs';
 import * as configFile from '../../../config/config';
 import * as types from '../../../actions/actionTypes';
-import LoginApi from '../../../api/mockLoginApi';
 
 export function loginSuccess(user) {
   return {type: types.LOG_IN_SUCCESS, user};

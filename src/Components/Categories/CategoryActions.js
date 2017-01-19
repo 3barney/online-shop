@@ -2,7 +2,6 @@ import axios from 'axios';
 import qs from 'qs';
 import * as configFile from "../../config/config";
 import * as types from '../../actions/actionTypes';
-import CategoryApi from '../../api/mockCategoriesApi';
 
 export function loadCategoriesSuccess(categories) {
   return { type: types.LOAD_CATEGORIES_SUCCESS, categories};

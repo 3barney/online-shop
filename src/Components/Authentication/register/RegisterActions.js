@@ -2,7 +2,6 @@ import axios from 'axios';
 import qs from 'qs';
 import * as configFile from '../../../config/config';
 import * as types from '../../../actions/actionTypes';
-import RegisterApi from '../../../api/mockRegisterApi';
 
 export function registerSuccess(registeredUser) {
   return { type: types.REGISTER_USER_SUCCESS, registeredUser};
