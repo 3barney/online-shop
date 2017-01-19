@@ -10,18 +10,17 @@ export class ManageCategoryPage extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state = {
-      //product: Object.assign({}, this.props.product),
-      //category: {category: {name: ''}},
       category: Object.assign({}, this.props.category),
       saving: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.addCategory = this.addCategory.bind(this);
+    this.editCategory = this.editCategory.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
-    if (this.props.category.id != nextProps.category.id) {
+    if (this.props.category._id != nextProps.category._id) {
       this.setState({category: Object.assign({}, nextProps.category)});
     }
   }
@@ -44,6 +43,17 @@ export class ManageCategoryPage extends React.Component {
       });
   }
 
+  editCategory(){
+    event.preventDefault();
+    this.setState({saving: true});
+    this.props.actions.editCategory(this.state.category)
+      .then( ()=> this.redirect())
+      .catch( error => {
+        toastr.error(error);
+        this.setState({saving: false});
+      });
+  }
+
   redirect() {
     this.setState({saving:false});
     toastr.success('Category Saved');
@@ -56,6 +66,7 @@ export class ManageCategoryPage extends React.Component {
         category={this.state.category}
         onChange={this.onChange}
         addCategory={this.addCategory}
+        editCategory={this.editCategory}
         saving={this.state.saving} />
     );
   }
@@ -72,14 +83,14 @@ ManageCategoryPage.contextTypes = {
 };
 
 function getCategoryById(categories, id) {
-  const category = categories.filter(category => category.id == id);
+  const category = categories.filter(category => category._id == id);
   if (category) return category[0]; // Filter returns an array so grab First elem at index 0
   return null;
 }
 
 function mapStateToProps(state, ownProps) {
   const categoryId = ownProps.params.id; // Fetch Cat.Id from URL
-  let category = {id: '', name: '', slug: ''};
+  let category = {_id: '', name: '', slug: ''};
   if (categoryId && state.categoryReducer.length > 0) {
     // Pass it all categories in state and of-course ID
     category = getCategoryById(state.categoryReducer, categoryId);

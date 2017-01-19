@@ -9,11 +9,12 @@ const CategoryList = ({categories}) => {
         <Table.Row>
           <Table.HeaderCell>Name</Table.HeaderCell>
           <Table.HeaderCell>Slug</Table.HeaderCell>
+          <Table.HeaderCell>Created By</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 
       <Table.Body>
-        {categories.map(category => <CategoryListRow key={category.id} category={category} />)}
+        {categories.map(category => <CategoryListRow key={category._id} category={category} />)}
       </Table.Body>
     </Table>
   );

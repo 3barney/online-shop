@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
-import {Progress, Segment, Form, Button, Input, Header, Divider} from 'semantic-ui-react';
+import { Progress, Segment, Form, Button, Input, Header, Divider, Icon} from 'semantic-ui-react';
 import * as _ from 'lodash';
 import CategoryList from './CategoryList';
 import * as categoriesActions from './CategoryActions';
@@ -18,7 +18,8 @@ class CategoryPage extends React.Component {
     this.state = {
       categories: [],
       fetchingCategories: true,
-      addingCategory: false
+      addingCategory: false,
+      noCategory: ''
     };
 
     this.redirectToAddNewCategory = this.redirectToAddNewCategory.bind(this);
@@ -36,7 +37,10 @@ class CategoryPage extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(this.props.categoryReducer != nextProps.categoryReducer){
-      this.setState({categories: nextProps.categoryReducer});
+      if(_.isNil(nextProps.categoryReducer.message)) {
+        this.setState({categories: nextProps.categoryReducer});
+      }
+      this.setState({noCategory: nextProps.categoryReducer.message});
     }
   }
 
@@ -47,22 +51,43 @@ class CategoryPage extends React.Component {
 
   render () {
     // const {categoryReducer} = this.props;
-    return (
-      <Segment.Group>
-        <Segment compact>
-          <Button primary color="blue" type="button"
-            disabled={this.state.fetchingCategories}
-            name="submitCategory"
-            onClick={this.redirectToAddNewCategory}
-            content="Add New Category" />
-        </Segment>
-        <Segment color="teal" loading={this.state.fetchingCategories}>
-          <Header textAlign="center" size="medium">EXISTING CATEGORIES</Header>
-          <CategoryList categories={this.state.categories} />
-        </Segment>
-      </Segment.Group>
-    );
+    if(this.state.noCategory) {
+      return (
+        <Segment.Group>
+          <Segment compact>
+            <Button primary color="blue" type="button"
+              name="submitCategory"
+              onClick={this.redirectToAddNewCategory}
+              content="Add New Category" />
+          </Segment>
+          <Segment color="teal">
+            <Header as="h2" textAlign="center">
+              <Icon name="hourglass empty" size="massive"/>
+              <Header.Content>
+                {this.state.noCategory}
+              </Header.Content>
+            </Header>
+          </Segment>
+        </Segment.Group>
+      );
+    } else {
+      return (
+        <Segment.Group>
+          <Segment compact>
+            <Button primary color="blue" type="button"
+              disabled={this.state.fetchingCategories}
+              name="submitCategory"
+              onClick={this.redirectToAddNewCategory}
+              content="Add New Category" />
+          </Segment>
 
+          <Segment color="teal" loading={this.state.fetchingCategories}>
+            <Header textAlign="center" size="medium">EXISTING CATEGORIES</Header>
+            <CategoryList categories={this.state.categories} />
+          </Segment>
+        </Segment.Group>
+      );
+    }
   }
 }
 
