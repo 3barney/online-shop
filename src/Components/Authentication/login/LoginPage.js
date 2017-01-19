@@ -46,7 +46,6 @@ export class LoginPage extends React.Component {
     this.setState({loggingIn: true});
     this.props.actions.loginUser(this.state.credentials)
       .then( (user)=> {
-        console.log(user);
         this.redirectToDashboard();
       })
       .catch( (error) => {

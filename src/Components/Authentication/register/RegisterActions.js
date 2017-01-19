@@ -20,7 +20,7 @@ export function registerUser(userData) {
       .catch(error => {
         throw(error.response.data);
       });
-  }
+  };
 }
 
 
