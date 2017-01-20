@@ -1,3 +1,6 @@
+import axios from 'axios';
+import qs from 'qs';
+import * as configFile from "../../config/config";
 import * as types from '../../actions/actionTypes';
 import ProductApi from '../../api/mockProductsApi';
 
@@ -15,15 +18,51 @@ export function updateProductSuccess(products) {
 
 export function loadProducts() {
   return function (dispatch) {
-    return ProductApi.getAllProducts()
-      .then( products => {
-        dispatch(loadProductsSuccess(products));
-      })
-      .catch( error => {
-        throw(error);
-      });
+    return axios.get(`${configFile.BASE_API_URL}/product`, {
+      headers: {'Authorization': 'Bearer '+ window.localStorage.getItem('shopID_token')}
+    })
+    .then( products => {
+        dispatch(loadProductsSuccess(products.data));
+    })
+    .catch( error => {
+      throw(error);
+    });
   };
 }
+
+export function saveProduct(product) {
+  return function(dispatch) {
+    return axios.post(`${configFile.BASE_API_URL}/product`, qs.stringify(product), {
+        headers: {'Authorization': 'Bearer '+ window.localStorage.getItem('shopID_token')}
+    })
+    .then( prod =>{
+      dispatch(createProductSuccess(prod));
+    })
+    .catch( error => {
+      throw(error);
+    });
+  };
+}
+
+export function editProduct(product) {
+  return function(dispatch) {
+    return axios.put(`${configFile.BASE_API_URL}/product/${product._id}`, qs.stringify(product), {
+      headers: {'Authorization': 'Bearer '+ window.localStorage.getItem('shopID_token')}
+    })
+    .then( product => {
+      dispatch(updateProductSuccess(product.data));
+    })
+    .catch( error => {
+      throw(error);
+    });
+  };
+}
+/*
+
+export function editCategory(category) {
+
+}
+
 
 export function saveProduct(product) {
   return function(dispatch) {
@@ -37,3 +76,4 @@ export function saveProduct(product) {
       });
   };
 }
+*/

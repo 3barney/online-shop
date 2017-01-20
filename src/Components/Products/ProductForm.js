@@ -1,13 +1,17 @@
 import React, {PropTypes} from 'react';
-import {Segment, Form, Input, Button, Header, Label, Dropdown} from 'semantic-ui-react';
+import {
+  Segment, Form, Input, Button, Header, Label, Dropdown, TextArea
+} from 'semantic-ui-react';
 import SelectInput from '../../common/SelectInput';
 
-const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) => {
+const ProductForm = ({product, allCategories, onChange, saving, saveProduct, editProduct}) => {
 
+  const add = 'ADD PRODUCT';
+  const edit = 'EDIT PRODUCT';
   return (
     <Segment padded size="large" color="blue" className="text container">
       <Form>
-        <Header size="medium">ADD A NEW PRODUCT</Header>
+        <Header size="medium">{product._id.length > 0 ? edit : add}</Header>
         <Form.Field inline>
           <label>Name</label>
           <Input fluid
@@ -15,6 +19,14 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
             placeholder="Product Name"
             defaultValue={product.name}
             onChange={onChange}  />
+        </Form.Field>
+        <Form.Field inline>
+          <label>Description</label>
+          <TextArea autoHeight
+            name="description"
+            defaultValue={product.description}
+            onChange={onChange}
+            placeholder="add a description" />
         </Form.Field>
         <Form.Field inline>
           <label>Price</label>
@@ -51,18 +63,18 @@ const ProductForm = ({product, allCategories, onChange, saving, saveProduct}) =>
         </Form.Field>
         <Form.Field>
           <SelectInput
-            name="categoryName"
+            name="category_name"
             label="Product Category"
-            value={product.categoryName}
+            value={product.category_name}
             defaultOption="Select Product Category"
             options={allCategories}
             onChange={onChange} />
         </Form.Field>
-
+        
         <Button primary color="blue" type="button"
           name="submitProduct"
           disabled={saving}
-          onClick={saveProduct}
+          onClick={product._id.length > 0 ? editProduct : saveProduct}
           content={saving ? 'Processing...': 'Submit'} />
       </Form>
     </Segment>
@@ -74,7 +86,8 @@ ProductForm.propTypes = {
   allCategories: React.PropTypes.array,
   onChange: React.PropTypes.func.isRequired,
   saving: React.PropTypes.bool.isRequired,
-  saveProduct: React.PropTypes.func.isRequired
+  saveProduct: React.PropTypes.func.isRequired,
+  editProduct: React.PropTypes.func.isRequired
 };
 
 export default ProductForm;

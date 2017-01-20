@@ -6,12 +6,12 @@ const ProductListRow = ({product}) => {
   return (
     <Table.Row>
       <Table.Cell>
-        <Link to={'/dashboard/products/add/'+product.id}>{product.name}</Link>
+        <Link to={'/dashboard/products/add/'+product._id}>{product.name}</Link>
       </Table.Cell>
       <Table.Cell>ksh {product.price}</Table.Cell>
-      <Table.Cell>{product.categoryName}</Table.Cell>
+      <Table.Cell>{product.category_name}</Table.Cell>
       <Table.Cell>{product.quantity}</Table.Cell>
-      <Table.Cell><Image src={product.image} avatar /></Table.Cell>
+      <Table.Cell><Image src={product.imageLink} avatar /></Table.Cell>
       <Table.Cell>{product.color}</Table.Cell>
       <Table.Cell>{product.size}</Table.Cell>
     </Table.Row>

@@ -11,17 +11,17 @@ class ManageProductPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      //product:  {name: '', color: '', price: '', size: '', category: ''},
       product: Object.assign({}, this.props.product),
       saving: false
     };
 
       this.onChange = this.onChange.bind(this);
       this.saveProduct = this.saveProduct.bind(this);
+      this.editProduct = this.editProduct.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
-    if (this.props.product.id != nextProps.product.id) {
+    if (this.props.product._id != nextProps.product._id) {
       this.setState({product: Object.assign({}, nextProps.product)});
     }
   }
@@ -44,6 +44,17 @@ class ManageProductPage extends React.Component {
       });
   }
 
+  editProduct(event) {
+    event.preventDefault();
+    this.setState({saving: true});
+    this.props.actions.editProduct(this.state.product)
+      .then( () => this.redirect())
+      .catch( error => {
+        toastr.error(error);
+        this.setState({saving: false});
+      });
+  }
+
   redirect() {
     this.setState({saving:false});
     toastr.success('Product Saved');
@@ -57,7 +68,8 @@ class ManageProductPage extends React.Component {
         allCategories={this.props.categories}
         onChange={this.onChange}
         saving={this.state.saving}
-        saveProduct={this.saveProduct}/>
+        saveProduct={this.saveProduct}
+        editProduct={this.editProduct} />
     );
   }
 }
@@ -74,22 +86,24 @@ ManageProductPage.contextTypes = {
 };
 
 function getProductyById(products, id) {
-  const product = products.filter(product => product.id == id);
+  const product = products.filter(product => product._id == id);
   if (product) return product[0]; // Filter returns an array so grab First elem at index 0
   return null;
 }
 
 function mapStateToProps(state, ownProps) {
   const productId = ownProps.params.id;
-  let product = {name: '', color: '', price: '', size: '', categoryName: ''};
+  let product = {_id: '', name: '', color: '', price: '', size: '', category_name: '', description: ''};
   if (productId && state.productsReducer.length > 0) {
    product = getProductyById(state.productsReducer, productId);
   }
 
-  const productCategoriesFormattedForDropdown = state.productsReducer.map( product => {
+  // TODO<ASAP>: ENSURE CATEGORIES REDUCER FETCHES BEFORE PRODUCTS
+
+  const productCategoriesFormattedForDropdown = state.categoryReducer.map( category => {
     return {
-      value : product.category_id,
-      text: product.categoryName
+      value : category._id,
+      text: category.name
     };
   });
 

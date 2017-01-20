@@ -18,7 +18,7 @@ const ProductList = ({products}) => {
       </Table.Header>
 
       <Table.Body>
-        {products.map(product => <ProductListRow key={product.id} product={product} />)}
+        {products.map(product => <ProductListRow key={product._id} product={product} />)}
       </Table.Body>
     </Table>
   );

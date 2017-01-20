@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import {bindActionCreators} from 'redux';
 import toastr from 'toastr';
+import * as _ from 'lodash';
 import * as productsActions from './ProductActions';
-import {Segment, Button, Header} from 'semantic-ui-react';
+import {Segment, Button, Header, Icon} from 'semantic-ui-react';
 import ProductList from './ProductList';
 
 class ProductPage extends React.Component {
@@ -13,7 +14,8 @@ class ProductPage extends React.Component {
 
     this.state = {
       products: [],
-      fetchingProducts: true
+      fetchingProducts: true,
+      noProduct: ''
     };
 
     this.redirectToAddNewProduct = this.redirectToAddNewProduct.bind(this);
@@ -31,7 +33,10 @@ class ProductPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.productsReducer != nextProps.productsReducer) {
-      this.setState({products: nextProps.productsReducer});
+      if(_.isNil(nextProps.productsReducer.message)) {
+        this.setState({products: nextProps.productsReducer});
+      }
+      this.setState({noProduct: nextProps.productsReducer.message});
     }
   }
 
@@ -40,21 +45,42 @@ class ProductPage extends React.Component {
   }
 
   render() {
-    return (
-      <Segment.Group>
-        <Segment compact>
-          <Button primary color="blue" type="button"
-            disabled={this.state.fetchingProducts}
-            name="submitCategory"
-            onClick={this.redirectToAddNewProduct}
-            content="Add New Product" />
-        </Segment>
-        <Segment color="teal" loading={this.state.fetchingProducts}>
-          <Header textAlign="center" size="medium">PRODUCTS</Header>
-          <ProductList products={this.state.products} />
-        </Segment>
-      </Segment.Group>
-    );
+    if (this.state.noProduct) {
+      return (
+        <Segment.Group>
+          <Segment compact>
+            <Button primary color="blue" type="button"
+              name="submitProduct"
+              onClick={this.redirectToAddNewProduct}
+              content="Add New Product" />
+          </Segment>
+          <Segment color="teal">
+            <Header as="h2" textAlign="center">
+              <Icon name="hourglass empty" size="massive"/>
+              <Header.Content>
+                {this.state.noProduct}
+              </Header.Content>
+            </Header>
+          </Segment>
+        </Segment.Group>
+      );
+    } else {
+      return (
+        <Segment.Group>
+          <Segment compact>
+            <Button primary color="blue" type="button"
+              disabled={this.state.fetchingProducts}
+              name="submitProduct"
+              onClick={this.redirectToAddNewProduct}
+              content="Add New Product" />
+          </Segment>
+          <Segment color="teal" loading={this.state.fetchingProducts}>
+            <Header textAlign="center" size="medium">PRODUCTS</Header>
+            <ProductList products={this.state.products} />
+          </Segment>
+        </Segment.Group>
+      );
+    }
   }
 }
 

@@ -6,6 +6,18 @@ export default function productsReducer(state = initialState.products, action) {
     case types.LOAD_PRODUCTS_SUCCESS:
       return action.products;
 
+    case types.CREATE_PRODUCT_SUCCESS:
+      return [
+        ...state,
+        Object.assign({}, action.products)
+      ];
+
+    case types.UPDATE_PRODUCT_SUCCESS:
+      return [
+        ...state.filter(products => products._id !== action.products._id),
+        Object.assign({}, action.products)
+      ];
+
     default:
       return state;
   }
